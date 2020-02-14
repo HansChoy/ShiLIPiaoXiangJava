@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.shixun.ihome.publicservice.mapper.IOrderLongMapper" >
-  <resultMap id="BaseResultMap" type="com.shixun.ihome.publicservice.pojo.IOrderLong" >
+<mapper namespace="com.hans.shilipiaoxiang.publicservice.mapper.IOrderLongMapper" >
+  <resultMap id="BaseResultMap" type="com.hans.shilipiaoxiang.publicservice.pojo.IOrderLong" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="salary" property="salary" jdbcType="DOUBLE" />
     <result column="month" property="month" jdbcType="INTEGER" />
@@ -69,7 +69,7 @@
   <sql id="Base_Column_List" >
     id, salary, month, about_file, order_id
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shixun.ihome.publicservice.pojo.IOrderLongExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IOrderLongExample" >
     select
     <if test="distinct" >
       distinct
@@ -93,13 +93,13 @@
     delete from i_order_long
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.shixun.ihome.publicservice.pojo.IOrderLongExample" >
+  <delete id="deleteByExample" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IOrderLongExample" >
     delete from i_order_long
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.shixun.ihome.publicservice.pojo.IOrderLong" >
+  <insert id="insert" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IOrderLong" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -108,7 +108,7 @@
     values (#{salary,jdbcType=DOUBLE}, #{month,jdbcType=INTEGER}, #{aboutFile,jdbcType=VARCHAR}, 
       #{orderId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.shixun.ihome.publicservice.pojo.IOrderLong" >
+  <insert id="insertSelective" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IOrderLong" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -142,7 +142,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.shixun.ihome.publicservice.pojo.IOrderLongExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IOrderLongExample" resultType="java.lang.Integer" >
     select count(*) from i_order_long
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -182,7 +182,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.shixun.ihome.publicservice.pojo.IOrderLong" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IOrderLong" >
     update i_order_long
     <set >
       <if test="salary != null" >
@@ -200,7 +200,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.shixun.ihome.publicservice.pojo.IOrderLong" >
+  <update id="updateByPrimaryKey" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IOrderLong" >
     update i_order_long
     set salary = #{salary,jdbcType=DOUBLE},
       month = #{month,jdbcType=INTEGER},

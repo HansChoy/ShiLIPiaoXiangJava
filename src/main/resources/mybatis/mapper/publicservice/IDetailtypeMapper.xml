@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.shixun.ihome.publicservice.mapper.IDetailtypeMapper" >
-  <resultMap id="BaseResultMap" type="com.shixun.ihome.publicservice.pojo.IDetailtype" >
+<mapper namespace="com.hans.shilipiaoxiang.publicservice.mapper.IDetailtypeMapper" >
+  <resultMap id="BaseResultMap" type="com.hans.shilipiaoxiang.publicservice.pojo.IDetailtype" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="typename" property="typename" jdbcType="VARCHAR" />
     <result column="servicetpye_id" property="servicetpyeId" jdbcType="INTEGER" />
@@ -76,7 +76,7 @@
     id, typename, servicetpye_id, ddescribe, charge_type, comm, explains, picturepath1, 
     picturepath2, price, type_id
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shixun.ihome.publicservice.pojo.IDetailtypeExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IDetailtypeExample" >
     select
     <if test="distinct" >
       distinct
@@ -100,13 +100,13 @@
     delete from i_detailtype
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.shixun.ihome.publicservice.pojo.IDetailtypeExample" >
+  <delete id="deleteByExample" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IDetailtypeExample" >
     delete from i_detailtype
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.shixun.ihome.publicservice.pojo.IDetailtype" >
+  <insert id="insert" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IDetailtype" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -119,7 +119,7 @@
       #{picturepath1,jdbcType=VARCHAR}, #{picturepath2,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, 
       #{typeId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.shixun.ihome.publicservice.pojo.IDetailtype" >
+  <insert id="insertSelective" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IDetailtype" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -189,7 +189,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.shixun.ihome.publicservice.pojo.IDetailtypeExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IDetailtypeExample" resultType="java.lang.Integer" >
     select count(*) from i_detailtype
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -253,7 +253,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.shixun.ihome.publicservice.pojo.IDetailtype" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IDetailtype" >
     update i_detailtype
     <set >
       <if test="typename != null" >
@@ -289,7 +289,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.shixun.ihome.publicservice.pojo.IDetailtype" >
+  <update id="updateByPrimaryKey" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IDetailtype" >
     update i_detailtype
     set typename = #{typename,jdbcType=VARCHAR},
       servicetpye_id = #{servicetpyeId,jdbcType=INTEGER},
@@ -303,9 +303,9 @@
       type_id = #{typeId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <resultMap id="detailMap" type="com.shixun.ihome.publicservice.pojo.IDetailtype" extends="BaseResultMap">
+  <resultMap id="detailMap" type="com.hans.shilipiaoxiang.publicservice.pojo.IDetailtype" extends="BaseResultMap">
     <id column="id" property="id"/>
-    <collection property="iServiceItemList" ofType="com.shixun.ihome.publicservice.pojo.IServiceItem">
+    <collection property="iServiceItemList" ofType="com.hans.shilipiaoxiang.publicservice.pojo.IServiceItem">
       <id column="sid" property="id" jdbcType="INTEGER" />
       <result column="detailtype_id" property="detailtypeId" jdbcType="INTEGER" />
       <result column="content" property="content" jdbcType="VARCHAR" />
@@ -327,11 +327,11 @@
   </where>
   </select>
 
-  <select id="selectServiceIdByDetailId" parameterType="int" resultType="com.shixun.ihome.publicservice.pojo.IDetailtype">
+  <select id="selectServiceIdByDetailId" parameterType="int" resultType="com.hans.shilipiaoxiang.publicservice.pojo.IDetailtype">
     SELECT * FROM i_detailtype where servicetpye_id = (select servicetpye_id from i_detailtype where id = #{detailtypeId})
   </select>
 
-  <select id="selectByServicetypeid" parameterType="int" resultType="com.shixun.ihome.publicservice.pojo.IDetailtype">
+  <select id="selectByServicetypeid" parameterType="int" resultType="com.hans.shilipiaoxiang.publicservice.pojo.IDetailtype">
    select * from i_detailtype where i_detailtype.servicetpye_id=#{serviceid}
   </select>
 </mapper>

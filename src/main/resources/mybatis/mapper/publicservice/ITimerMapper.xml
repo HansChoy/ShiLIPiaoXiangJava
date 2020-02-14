@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.shixun.ihome.publicservice.mapper.ITimerMapper" >
-  <resultMap id="BaseResultMap" type="com.shixun.ihome.publicservice.pojo.ITimer" >
+<mapper namespace="com.hans.shilipiaoxiang.publicservice.mapper.ITimerMapper" >
+  <resultMap id="BaseResultMap" type="com.hans.shilipiaoxiang.publicservice.pojo.ITimer" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="timer" property="timer" jdbcType="BIGINT" />
     <result column="update_time" property="updateTime" jdbcType="DATE" />
@@ -68,7 +68,7 @@
   <sql id="Base_Column_List" >
     id, timer, update_time, staff_id
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shixun.ihome.publicservice.pojo.ITimerExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.ITimerExample" >
     select
     <if test="distinct" >
       distinct
@@ -92,13 +92,13 @@
     delete from i_timer
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.shixun.ihome.publicservice.pojo.ITimerExample" >
+  <delete id="deleteByExample" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.ITimerExample" >
     delete from i_timer
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.shixun.ihome.publicservice.pojo.ITimer" >
+  <insert id="insert" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.ITimer" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -107,7 +107,7 @@
     values (#{timer,jdbcType=BIGINT}, #{updateTime,jdbcType=DATE}, #{staffId,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.shixun.ihome.publicservice.pojo.ITimer" >
+  <insert id="insertSelective" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.ITimer" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -135,7 +135,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.shixun.ihome.publicservice.pojo.ITimerExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.ITimerExample" resultType="java.lang.Integer" >
     select count(*) from i_timer
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -171,7 +171,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.shixun.ihome.publicservice.pojo.ITimer" flushCache="true">
+  <update id="updateByPrimaryKeySelective" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.ITimer" flushCache="true">
     update i_timer
     <set >
       <if test="timer != null" >
@@ -186,7 +186,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.shixun.ihome.publicservice.pojo.ITimer" flushCache="true">
+  <update id="updateByPrimaryKey" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.ITimer" flushCache="true">
     update i_timer
     set timer = #{timer,jdbcType=BIGINT},
       update_time = #{updateTime,jdbcType=DATE},
@@ -196,9 +196,9 @@
 
 
 
-  <resultMap autoMapping="true" id="staffAndTimer" type="com.shixun.ihome.publicservice.pojo.ITimer">
+  <resultMap autoMapping="true" id="staffAndTimer" type="com.hans.shilipiaoxiang.publicservice.pojo.ITimer">
     <id column="id" property="id"></id>
-    <association autoMapping="true"  property="iStaff" javaType="com.shixun.ihome.publicservice.pojo.IStaff">
+    <association autoMapping="true"  property="iStaff" javaType="com.hans.shilipiaoxiang.publicservice.pojo.IStaff">
       <id column="sid" property="id"></id>
     </association>
   </resultMap>
@@ -219,7 +219,7 @@
     where s.id = #{staffId}
   </update>
 
-  <select id="selectStaffByFree" parameterType="map" resultType="com.shixun.ihome.publicservice.pojo.IStaff">
+  <select id="selectStaffByFree" parameterType="map" resultType="com.hans.shilipiaoxiang.publicservice.pojo.IStaff">
 select s.id, s.name, s.sex
     , s.phone, s.detailtype_id, s.wechat_id, s.qualification, s.health, s.id_card, s.status,
 (6 - length(replace((t.timer &gt;&gt; (datediff(now(), t.update_time)*6) &gt;&gt; #{index} * 6)&amp; 63,'0',''))) as timer
@@ -229,7 +229,7 @@ where d.servicetpye_id = 1 and ((t.timer &gt;&gt; ((datediff(now(), t.update_tim
 order by timer desc, s.id asc
   </select>
 
-  <select id="selectStaffByFreeOther" parameterType="map" resultType="com.shixun.ihome.publicservice.pojo.IStaff">
+  <select id="selectStaffByFreeOther" parameterType="map" resultType="com.hans.shilipiaoxiang.publicservice.pojo.IStaff">
     select s.id, s.name, s.sex
     , s.phone, s.detailtype_id, s.wechat_id, s.qualification, s.health, s.id_card, s.status
     from i_staff s left join i_timer t on t.staff_id = s.id  left join i_detailtype d on d.id = s.detailtype_id
@@ -244,12 +244,12 @@ order by timer desc, s.id asc
 
     order by timer desc, s.id asc
   </select>
-  <select id="selectStaffTimer" parameterType="Integer" resultType="com.shixun.ihome.publicservice.pojo.ITimer">
+  <select id="selectStaffTimer" parameterType="Integer" resultType="com.hans.shilipiaoxiang.publicservice.pojo.ITimer">
     select t.id, t.timer &gt;&gt; (datediff(now(), t.update_time) * 6) as timer, t.update_time, t.staff_id
     from i_staff s left join i_timer t on t.staff_id = s.id
     where s.detailtype_id = #{detailType}
   </select>
-  <select id="selectOtherStaffTimer" parameterType="Integer" resultType="com.shixun.ihome.publicservice.pojo.ITimer">
+  <select id="selectOtherStaffTimer" parameterType="Integer" resultType="com.hans.shilipiaoxiang.publicservice.pojo.ITimer">
     select t.id, t.timer &gt;&gt; (datediff(now(), t.update_time) * 6) as timer, t.update_time, t.staff_id
     from i_staff s left join i_timer t on t.staff_id = s.id
     where s.detailtype_id = #{detailType}

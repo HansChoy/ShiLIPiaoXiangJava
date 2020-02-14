@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.shixun.ihome.publicservice.mapper.IStaffMapper" >
-  <resultMap id="BaseResultMap" type="com.shixun.ihome.publicservice.pojo.IStaff" >
+<mapper namespace="com.hans.shilipiaoxiang.publicservice.mapper.IStaffMapper" >
+  <resultMap id="BaseResultMap" type="com.hans.shilipiaoxiang.publicservice.pojo.IStaff" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="sex" property="sex" jdbcType="INTEGER" />
@@ -84,7 +84,7 @@
     id, name, sex, phone, detailtype_id, wechat_id, qualification, health, id_card, status, 
     basesalary, country, language, province, city
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shixun.ihome.publicservice.pojo.IStaffExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IStaffExample" >
     select
     <if test="distinct" >
       distinct
@@ -108,13 +108,13 @@
     delete from i_staff
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.shixun.ihome.publicservice.pojo.IStaffExample" >
+  <delete id="deleteByExample" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IStaffExample" >
     delete from i_staff
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.shixun.ihome.publicservice.pojo.IStaff" >
+  <insert id="insert" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IStaff" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -129,7 +129,7 @@
       #{basesalary,jdbcType=DOUBLE}, #{country,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR}, 
       #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.shixun.ihome.publicservice.pojo.IStaff" >
+  <insert id="insertSelective" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IStaff" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -223,7 +223,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.shixun.ihome.publicservice.pojo.IStaffExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IStaffExample" resultType="java.lang.Integer" >
     select count(*) from i_staff
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -303,7 +303,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.shixun.ihome.publicservice.pojo.IStaff" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IStaff" >
     update i_staff
     <set >
       <if test="name != null" >
@@ -351,7 +351,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.shixun.ihome.publicservice.pojo.IStaff" >
+  <update id="updateByPrimaryKey" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IStaff" >
     update i_staff
     set name = #{name,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=INTEGER},
@@ -370,7 +370,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selectStaffByServicetypeId" parameterType="java.lang.Integer" resultType="com.shixun.ihome.publicservice.pojo.IStaff">
+  <select id="selectStaffByServicetypeId" parameterType="java.lang.Integer" resultType="com.hans.shilipiaoxiang.publicservice.pojo.IStaff">
     select
     <include refid="Alias_Column_List"></include>
     from i_staff s
@@ -379,7 +379,7 @@
   </select>
 
 
-  <select id="selectStaffs" parameterType="java.util.HashMap" resultType="com.shixun.ihome.publicservice.pojo.IStaff">
+  <select id="selectStaffs" parameterType="java.util.HashMap" resultType="com.hans.shilipiaoxiang.publicservice.pojo.IStaff">
     select
     <include refid="Alias_Column_List"></include>
     from i_staff s
@@ -420,7 +420,7 @@
     </where>
   </select>
 
-  <select id="selectHourworkStaffsByStatus" parameterType="map" resultType="com.shixun.ihome.publicservice.pojo.IStaff">
+  <select id="selectHourworkStaffsByStatus" parameterType="map" resultType="com.hans.shilipiaoxiang.publicservice.pojo.IStaff">
     SELECT s.id , s.name, s.sex
     , s.phone, s.detailtype_id, s.wechat_id, s.qualification, s.health, s.id_card, s.status,s.basesalary
     FROM i_timer t left join i_staff s on s.id = t.staff_id
@@ -448,17 +448,17 @@
     </where>
   </select>
 
-  <select id="selectStaffForOrder" parameterType="Integer"  resultType="com.shixun.ihome.publicservice.pojo.IStaff">
+  <select id="selectStaffForOrder" parameterType="Integer"  resultType="com.hans.shilipiaoxiang.publicservice.pojo.IStaff">
     select s.id , s.name, s.sex
     , s.phone, s.detailtype_id, s.wechat_id, s.qualification, s.health, s.id_card, s.status,s.basesalary
     from i_order_staff os left join i_staff s on s.id = os.order_id
     where os.order_id = {orderId} and s.status = 2
   </select>
 
-  <select id="selectStaffForHour" parameterType="map" resultType="com.shixun.ihome.publicservice.pojo.IStaff">
+  <select id="selectStaffForHour" parameterType="map" resultType="com.hans.shilipiaoxiang.publicservice.pojo.IStaff">
 
   </select>
-  <select id="selectFreeLongTermsWorks" resultType="com.shixun.ihome.publicservice.pojo.IStaff">
+  <select id="selectFreeLongTermsWorks" resultType="com.hans.shilipiaoxiang.publicservice.pojo.IStaff">
     SELECT
     d.*
     FROM
@@ -480,7 +480,7 @@
     AND c.servicetpye_id =4
   </select>
 
-  <select id="selectbuphone" resultType="com.shixun.ihome.publicservice.pojo.IStaff" parameterType="String">
+  <select id="selectbuphone" resultType="com.hans.shilipiaoxiang.publicservice.pojo.IStaff" parameterType="String">
     select * from i_staff where phone=#{phone}
   </select>
 </mapper>

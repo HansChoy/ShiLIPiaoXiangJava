@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.shixun.ihome.publicservice.mapper.IToolrecordMapper" >
-  <resultMap id="BaseResultMap" type="com.shixun.ihome.publicservice.pojo.IToolrecord" >
+<mapper namespace="com.hans.shilipiaoxiang.publicservice.mapper.IToolrecordMapper" >
+  <resultMap id="BaseResultMap" type="com.hans.shilipiaoxiang.publicservice.pojo.IToolrecord" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="order_id" property="orderId" jdbcType="INTEGER" />
     <result column="staff_id" property="staffId" jdbcType="INTEGER" />
@@ -9,7 +9,7 @@
     <result column="count" property="count" jdbcType="INTEGER" />
     <result column="state" property="state" jdbcType="INTEGER" />
     <result column="name" property="staffname" jdbcType="VARCHAR" />
-    <association property="iTool" javaType="com.shixun.ihome.publicservice.pojo.ITool" resultMap="com.shixun.ihome.publicservice.mapper.IToolMapper.BaseResultMap">
+    <association property="iTool" javaType="com.hans.shilipiaoxiang.publicservice.pojo.ITool" resultMap="com.hans.shilipiaoxiang.publicservice.mapper.IToolMapper.BaseResultMap">
     </association>
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -73,7 +73,7 @@
   <sql id="Base_Column_List" >
     id, order_id, staff_id, tool_id, count, state
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shixun.ihome.publicservice.pojo.IToolrecordExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IToolrecordExample" >
     select
     <if test="distinct" >
       distinct
@@ -97,13 +97,13 @@
     delete from i_toolrecord
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.shixun.ihome.publicservice.pojo.IToolrecordExample" >
+  <delete id="deleteByExample" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IToolrecordExample" >
     delete from i_toolrecord
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.shixun.ihome.publicservice.pojo.IToolrecord" >
+  <insert id="insert" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IToolrecord" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -112,7 +112,7 @@
     values (#{orderId,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{toolId,jdbcType=INTEGER}, 
       #{count,jdbcType=INTEGER}, #{state,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.shixun.ihome.publicservice.pojo.IToolrecord" >
+  <insert id="insertSelective" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IToolrecord" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -152,7 +152,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.shixun.ihome.publicservice.pojo.IToolrecordExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IToolrecordExample" resultType="java.lang.Integer" >
     select count(*) from i_toolrecord
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -196,7 +196,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.shixun.ihome.publicservice.pojo.IToolrecord" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IToolrecord" >
     update i_toolrecord
     <set >
       <if test="orderId != null" >
@@ -217,7 +217,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.shixun.ihome.publicservice.pojo.IToolrecord" >
+  <update id="updateByPrimaryKey" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IToolrecord" >
     update i_toolrecord
     set order_id = #{orderId,jdbcType=INTEGER},
       staff_id = #{staffId,jdbcType=INTEGER},
@@ -227,7 +227,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selectToolrecord" parameterType="int" resultType="com.shixun.ihome.publicservice.pojo.IToolrecord">
+  <select id="selectToolrecord" parameterType="int" resultType="com.hans.shilipiaoxiang.publicservice.pojo.IToolrecord">
     select * from i_toolrecord where order_id=#{orderid} and staff_id=#{staffid}
   </select>
 
@@ -238,7 +238,7 @@
     </if>
   </select>
 
-  <resultMap id="recordMap" type="com.shixun.ihome.publicservice.pojo.IToolrecord" >
+  <resultMap id="recordMap" type="com.hans.shilipiaoxiang.publicservice.pojo.IToolrecord" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="order_id" property="orderId" jdbcType="INTEGER" />
     <result column="staff_id" property="staffId" jdbcType="INTEGER" />
@@ -246,14 +246,14 @@
     <result column="count" property="count" jdbcType="INTEGER" />
     <result column="state" property="state" jdbcType="INTEGER" />
     <result column="name" property="staffname" jdbcType="VARCHAR" />
-    <association property="iTool" javaType="com.shixun.ihome.publicservice.pojo.ITool" >
+    <association property="iTool" javaType="com.hans.shilipiaoxiang.publicservice.pojo.ITool" >
       <id column="tid" property="id" jdbcType="INTEGER" />
       <result column="tname" property="tname" jdbcType="VARCHAR" />
       <result column="detailtype_id" property="detailtypeId" jdbcType="INTEGER" />
       <result column="tcount" property="tcount" jdbcType="INTEGER" />
     </association>
 
-    <association property="iOrder" javaType="com.shixun.ihome.publicservice.pojo.IOrder" >
+    <association property="iOrder" javaType="com.hans.shilipiaoxiang.publicservice.pojo.IOrder" >
       <id column="oid" property="id" jdbcType="INTEGER" />
       <result column="user_id" property="userId" jdbcType="INTEGER" />
       <result column="useraddress_id" property="useraddressId" jdbcType="INTEGER" />
@@ -266,7 +266,7 @@
       <result column="comm" property="comm" jdbcType="VARCHAR" />
     </association>
 
-    <association property="iDetailtype" javaType="com.shixun.ihome.publicservice.pojo.IDetailtype" >
+    <association property="iDetailtype" javaType="com.hans.shilipiaoxiang.publicservice.pojo.IDetailtype" >
       <id column="did" property="id" jdbcType="INTEGER" />
       <result column="typename" property="typename" jdbcType="VARCHAR" />
       <result column="servicetpye_id" property="servicetpyeId" jdbcType="INTEGER" />
@@ -283,7 +283,7 @@
 
 
   </resultMap>
-  <resultMap id="recordStaffOrder" type="com.shixun.ihome.publicservice.pojo.IToolrecord" extends="BaseResultMap">
+  <resultMap id="recordStaffOrder" type="com.hans.shilipiaoxiang.publicservice.pojo.IToolrecord" extends="BaseResultMap">
 
     <association property="staff" autoMapping="true" >
       <id column="sid" jdbcType="INTEGER" property="id"></id>

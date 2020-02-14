@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.shixun.ihome.publicservice.mapper.IOrderMapper" >
-  <resultMap id="BaseResultMap" type="com.shixun.ihome.publicservice.pojo.IOrder" >
+<mapper namespace="com.hans.shilipiaoxiang.publicservice.mapper.IOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.hans.shilipiaoxiang.publicservice.pojo.IOrder" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="useraddress_id" property="useraddressId" jdbcType="INTEGER" />
@@ -75,7 +75,7 @@
     id, user_id, useraddress_id, detailtype_id, start_time, price, order_time, finaly_time, 
     state, comm
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shixun.ihome.publicservice.pojo.IOrderExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IOrderExample" >
     select
     <if test="distinct" >
       distinct
@@ -99,13 +99,13 @@
     delete from i_order
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.shixun.ihome.publicservice.pojo.IOrderExample" >
+  <delete id="deleteByExample" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IOrderExample" >
     delete from i_order
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.shixun.ihome.publicservice.pojo.IOrder" >
+  <insert id="insert" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IOrder" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -118,7 +118,7 @@
       #{finalyTime,jdbcType=TIMESTAMP}, #{state,jdbcType=INTEGER}, #{comm,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.shixun.ihome.publicservice.pojo.IOrder" >
+  <insert id="insertSelective" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IOrder" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -182,7 +182,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.shixun.ihome.publicservice.pojo.IOrderExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IOrderExample" resultType="java.lang.Integer" >
     select count(*) from i_order
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -242,7 +242,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.shixun.ihome.publicservice.pojo.IOrder" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IOrder" >
     update i_order
     <set >
       <if test="userId != null" >
@@ -275,7 +275,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.shixun.ihome.publicservice.pojo.IOrder" >
+  <update id="updateByPrimaryKey" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IOrder" >
     update i_order
     set user_id = #{userId,jdbcType=INTEGER},
       useraddress_id = #{useraddressId,jdbcType=INTEGER},
@@ -289,7 +289,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <resultMap type="com.shixun.ihome.publicservice.pojo.IOrder" id="listall">
+  <resultMap type="com.hans.shilipiaoxiang.publicservice.pojo.IOrder" id="listall">
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="useraddress_id" property="useraddressId" jdbcType="INTEGER" />
@@ -301,7 +301,7 @@
     <result column="state" property="state" jdbcType="INTEGER" />
     <result column="comm" property="comm" jdbcType="VARCHAR" />
 
-    <association property="user" javaType="com.shixun.ihome.publicservice.pojo.IUser" >
+    <association property="user" javaType="com.hans.shilipiaoxiang.publicservice.pojo.IUser" >
       <id column="uid" property="id" jdbcType="INTEGER" />
       <result column="weixin_id" property="weixinId" jdbcType="INTEGER" />
       <result column="phone" property="phone" jdbcType="VARCHAR" />
@@ -313,7 +313,7 @@
       <result column="city" property="city" jdbcType="VARCHAR" />
     </association>
 
-    <association property="userDetail" javaType="com.shixun.ihome.publicservice.pojo.IUserDetail" >
+    <association property="userDetail" javaType="com.hans.shilipiaoxiang.publicservice.pojo.IUserDetail" >
       <id column="aid" property="id" jdbcType="INTEGER" />
       <result column="user_id" property="userId" jdbcType="INTEGER" />
       <result column="username" property="username" jdbcType="VARCHAR" />
@@ -324,7 +324,7 @@
       <result column="status" property="status" jdbcType="INTEGER" />
     </association>
 
-    <association property="detailtype" javaType="com.shixun.ihome.publicservice.pojo.IDetailtype" >
+    <association property="detailtype" javaType="com.hans.shilipiaoxiang.publicservice.pojo.IDetailtype" >
       <id column="did" property="id" jdbcType="INTEGER" />
       <result column="typename" property="typename" jdbcType="VARCHAR" />
       <result column="servicetpye_id" property="servicetpyeId" jdbcType="INTEGER" />
@@ -339,7 +339,7 @@
 
     </association>
 
-    <association property="iStaff" javaType="com.shixun.ihome.publicservice.pojo.IStaff" >
+    <association property="iStaff" javaType="com.hans.shilipiaoxiang.publicservice.pojo.IStaff" >
       <id column="sid" property="id" jdbcType="INTEGER" />
       <result column="name" property="name" jdbcType="VARCHAR" />
       <result column="sex" property="sex" jdbcType="INTEGER" />
@@ -354,14 +354,14 @@
       <result column="typename" property="typename" jdbcType="VARCHAR"/>
     </association>
 
-    <association property="iTool" javaType="com.shixun.ihome.publicservice.pojo.ITool">
+    <association property="iTool" javaType="com.hans.shilipiaoxiang.publicservice.pojo.ITool">
       <id column="tid" property="id" jdbcType="INTEGER" />
       <result column="tname" property="tname" jdbcType="VARCHAR" />
       <result column="detailtype_id" property="detailtypeId" jdbcType="INTEGER" />
       <result column="tcount" property="tcount" jdbcType="INTEGER" />
     </association>
 
-    <association property="iToolrecord" javaType="com.shixun.ihome.publicservice.pojo.IToolrecord" >
+    <association property="iToolrecord" javaType="com.hans.shilipiaoxiang.publicservice.pojo.IToolrecord" >
       <id column="trid" property="id" jdbcType="INTEGER" />
       <result column="order_id" property="orderId" jdbcType="INTEGER" />
       <result column="staff_id" property="staffId" jdbcType="INTEGER" />
@@ -379,7 +379,7 @@
     where o.user_id=u.id and o.useraddress_id=a.id and o.detailtype_id=d.id and o.state!=5
   </select>
 
-  <select id="listByCondition" parameterType="com.shixun.ihome.publicservice.pojo.IOrder"  resultMap="BaseResultMap">
+  <select id="listByCondition" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IOrder" resultMap="BaseResultMap">
      select id, user_id, useraddress_id, detailtype_id, start_time, price, order_time, finaly_time, state, comm
      from i_order
     <where>
@@ -391,7 +391,7 @@
       </if>
     </where>
   </select>
-  <select id="listByLongTermOrder" parameterType="com.shixun.ihome.publicservice.pojo.IOrder"  resultMap="listall">
+  <select id="listByLongTermOrder" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IOrder" resultMap="listall">
     SELECT
     a.*,
     b.typename
@@ -458,7 +458,7 @@ select *,d.id as did,a.id as aid,u.id as uid from i_order o,i_user u,i_detailtyp
 
   </select>
 
-  <select id="idbyTypename" parameterType="String" resultType="com.shixun.ihome.publicservice.pojo.IDetailtype">
+  <select id="idbyTypename" parameterType="String" resultType="com.hans.shilipiaoxiang.publicservice.pojo.IDetailtype">
     select * from i_detailtype where typename like "%"#{typename}"%"
   </select>
 

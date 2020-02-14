@@ -8,10 +8,10 @@
         <version>2.1.8.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.shixun</groupId>
-    <artifactId>ihome</artifactId>
+    <groupId>com.hans</groupId>
+    <artifactId>shilipiaoxiang</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>ihome</name>
+    <name>shilipiaoxiang</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

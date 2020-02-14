@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.shixun.ihome.publicservice.mapper.IRecordMapper" >
-  <resultMap id="BaseResultMap" type="com.shixun.ihome.publicservice.pojo.IRecord" >
+<mapper namespace="com.hans.shilipiaoxiang.publicservice.mapper.IRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.hans.shilipiaoxiang.publicservice.pojo.IRecord" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="bywho" property="bywho" jdbcType="VARCHAR" />
     <result column="bytime" property="bytime" jdbcType="TIMESTAMP" />
@@ -71,7 +71,7 @@
   <sql id="Base_Column_List" >
     id, bywho, bytime, table_name, old_content, new_content, status
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shixun.ihome.publicservice.pojo.IRecordExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IRecordExample" >
     select
     <if test="distinct" >
       distinct
@@ -95,13 +95,13 @@
     delete from i_record
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.shixun.ihome.publicservice.pojo.IRecordExample" >
+  <delete id="deleteByExample" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IRecordExample" >
     delete from i_record
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.shixun.ihome.publicservice.pojo.IRecord" >
+  <insert id="insert" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IRecord" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -112,7 +112,7 @@
       #{oldContent,jdbcType=VARCHAR}, #{newContent,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.shixun.ihome.publicservice.pojo.IRecord" >
+  <insert id="insertSelective" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IRecord" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -158,7 +158,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.shixun.ihome.publicservice.pojo.IRecordExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IRecordExample" resultType="java.lang.Integer" >
     select count(*) from i_record
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -206,7 +206,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.shixun.ihome.publicservice.pojo.IRecord" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IRecord" >
     update i_record
     <set >
       <if test="bywho != null" >
@@ -230,7 +230,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.shixun.ihome.publicservice.pojo.IRecord" >
+  <update id="updateByPrimaryKey" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IRecord" >
     update i_record
     set bywho = #{bywho,jdbcType=VARCHAR},
       bytime = #{bytime,jdbcType=TIMESTAMP},

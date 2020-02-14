@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.shixun.ihome.publicservice.mapper.IUserMapper" >
-  <resultMap id="BaseResultMap" type="com.shixun.ihome.publicservice.pojo.IUser" >
+<mapper namespace="com.hans.shilipiaoxiang.publicservice.mapper.IUserMapper" >
+  <resultMap id="BaseResultMap" type="com.hans.shilipiaoxiang.publicservice.pojo.IUser" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="weixin_id" property="weixinId" jdbcType="INTEGER" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
@@ -73,7 +73,7 @@
   <sql id="Base_Column_List" >
     id, weixin_id, phone, name, gender, country, language, province, city
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shixun.ihome.publicservice.pojo.IUserExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IUserExample" >
     select
     <if test="distinct" >
       distinct
@@ -97,13 +97,13 @@
     delete from i_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.shixun.ihome.publicservice.pojo.IUserExample" >
+  <delete id="deleteByExample" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IUserExample" >
     delete from i_user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.shixun.ihome.publicservice.pojo.IUser" >
+  <insert id="insert" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IUser" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -114,7 +114,7 @@
       #{gender,jdbcType=INTEGER}, #{country,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR}, 
       #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.shixun.ihome.publicservice.pojo.IUser" >
+  <insert id="insertSelective" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IUser" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -172,7 +172,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.shixun.ihome.publicservice.pojo.IUserExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IUserExample" resultType="java.lang.Integer" >
     select count(*) from i_user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -228,7 +228,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.shixun.ihome.publicservice.pojo.IUser" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IUser" >
     update i_user
     <set >
       <if test="weixinId != null" >
@@ -258,7 +258,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.shixun.ihome.publicservice.pojo.IUser" >
+  <update id="updateByPrimaryKey" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IUser" >
     update i_user
     set weixin_id = #{weixinId,jdbcType=INTEGER},
       phone = #{phone,jdbcType=VARCHAR},
@@ -270,7 +270,7 @@
       city = #{city,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <resultMap id="userDetailsResultMap" type="com.shixun.ihome.publicservice.pojo.IUserDetail" >
+  <resultMap id="userDetailsResultMap" type="com.hans.shilipiaoxiang.publicservice.pojo.IUserDetail" >
     <id column="detailsId" property="id" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="province" property="province" jdbcType="VARCHAR" />
@@ -279,13 +279,13 @@
     <result column="orderPhone" property="phone" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
-  <resultMap id="weixinResultMap" type="com.shixun.ihome.publicservice.pojo.IWeixin">
+  <resultMap id="weixinResultMap" type="com.hans.shilipiaoxiang.publicservice.pojo.IWeixin">
     <id column="wid" property="id" jdbcType="INTEGER" />
     <result column="open_id" property="openId" jdbcType="VARCHAR" />
     <result column="position_id" property="positionId" jdbcType="INTEGER" />
   </resultMap>
-  <resultMap id="listUsers" type="com.shixun.ihome.publicservice.pojo.IUser" extends="BaseResultMap">
-    <collection property="userDetail" ofType="com.shixun.ihome.publicservice.pojo.IUser" resultMap="userDetailsResultMap">
+  <resultMap id="listUsers" type="com.hans.shilipiaoxiang.publicservice.pojo.IUser" extends="BaseResultMap">
+    <collection property="userDetail" ofType="com.hans.shilipiaoxiang.publicservice.pojo.IUser" resultMap="userDetailsResultMap">
     </collection>
   </resultMap>
   <sql id="iUserDetail" >
@@ -302,11 +302,11 @@
       and a.phone like "%"#{phone}"%"
     </if>
   </select>
-  <select id="selectAllUser" parameterType="com.shixun.ihome.publicservice.pojo.IUser" resultMap="BaseResultMap">
+  <select id="selectAllUser" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IUser" resultMap="BaseResultMap">
     SELECT * FROM i_user
   </select>
 
-  <resultMap id="UserWeixinResultMap" type="com.shixun.ihome.publicservice.pojo.IUser" extends="BaseResultMap">
+  <resultMap id="UserWeixinResultMap" type="com.hans.shilipiaoxiang.publicservice.pojo.IUser" extends="BaseResultMap">
     <association property="weixin" resultMap="weixinResultMap" ></association>
   </resultMap>
 
@@ -316,11 +316,11 @@
 SELECT u.id, u.weixin_id, u.phone, w.id as wid, w.open_id, w.position_id FROM i_user u left join i_weixin w on w.id = u.weixin_id where u.id = #{userId}
   </select>
 
-  <select id="getuser" parameterType="int" resultType="com.shixun.ihome.publicservice.pojo.IUser">
+  <select id="getuser" parameterType="int" resultType="com.hans.shilipiaoxiang.publicservice.pojo.IUser">
     select * from i_user where id=#{userid}
   </select>
 
-  <select id="selectByphone" parameterType="String" resultType="com.shixun.ihome.publicservice.pojo.IUser">
+  <select id="selectByphone" parameterType="String" resultType="com.hans.shilipiaoxiang.publicservice.pojo.IUser">
     select * from i_user where phone=#{phone}
   </select>
 </mapper>

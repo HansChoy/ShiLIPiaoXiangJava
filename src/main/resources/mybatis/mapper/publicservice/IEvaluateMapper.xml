@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.shixun.ihome.publicservice.mapper.IEvaluateMapper" >
-  <resultMap id="BaseResultMap" type="com.shixun.ihome.publicservice.pojo.IEvaluate" >
+<mapper namespace="com.hans.shilipiaoxiang.publicservice.mapper.IEvaluateMapper" >
+  <resultMap id="BaseResultMap" type="com.hans.shilipiaoxiang.publicservice.pojo.IEvaluate" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="order_id" property="orderId" jdbcType="INTEGER" />
     <result column="quality_valuation" property="qualityValuation" jdbcType="INTEGER" />
@@ -70,7 +70,7 @@
   <sql id="Base_Column_List" >
     id, order_id, quality_valuation, attitude_valuation, e_describe, finallytime
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shixun.ihome.publicservice.pojo.IEvaluateExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IEvaluateExample" >
     select
     <if test="distinct" >
       distinct
@@ -94,13 +94,13 @@
     delete from i_evaluate
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.shixun.ihome.publicservice.pojo.IEvaluateExample" >
+  <delete id="deleteByExample" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IEvaluateExample" >
     delete from i_evaluate
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.shixun.ihome.publicservice.pojo.IEvaluate" >
+  <insert id="insert" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IEvaluate" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -109,7 +109,7 @@
     values (#{orderId,jdbcType=INTEGER}, #{qualityValuation,jdbcType=INTEGER}, #{attitudeValuation,jdbcType=INTEGER}, 
       #{eDescribe,jdbcType=VARCHAR}, #{finallytime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.shixun.ihome.publicservice.pojo.IEvaluate" >
+  <insert id="insertSelective" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IEvaluate" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -149,7 +149,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.shixun.ihome.publicservice.pojo.IEvaluateExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IEvaluateExample" resultType="java.lang.Integer" >
     select count(*) from i_evaluate
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -193,7 +193,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.shixun.ihome.publicservice.pojo.IEvaluate" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IEvaluate" >
     update i_evaluate
     <set >
       <if test="orderId != null" >
@@ -214,7 +214,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.shixun.ihome.publicservice.pojo.IEvaluate" >
+  <update id="updateByPrimaryKey" parameterType="com.hans.shilipiaoxiang.publicservice.pojo.IEvaluate" >
     update i_evaluate
     set order_id = #{orderId,jdbcType=INTEGER},
       quality_valuation = #{qualityValuation,jdbcType=INTEGER},
@@ -224,12 +224,12 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <resultMap id="listMap" type="com.shixun.ihome.publicservice.pojo.IEvaluate"  extends="BaseResultMap">
+  <resultMap id="listMap" type="com.hans.shilipiaoxiang.publicservice.pojo.IEvaluate" extends="BaseResultMap">
     <id column="id" property="id"/>
-      <association property="order" javaType="com.shixun.ihome.publicservice.pojo.IOrder" resultMap="com.shixun.ihome.publicservice.mapper.IOrderMapper.BaseResultMap">
+      <association property="order" javaType="com.hans.shilipiaoxiang.publicservice.pojo.IOrder" resultMap="com.hans.shilipiaoxiang.publicservice.mapper.IOrderMapper.BaseResultMap">
     </association>
 
-    <association property="detailtype" javaType="com.shixun.ihome.publicservice.pojo.IDetailtype" resultMap="com.shixun.ihome.publicservice.mapper.IDetailtypeMapper.BaseResultMap">
+    <association property="detailtype" javaType="com.hans.shilipiaoxiang.publicservice.pojo.IDetailtype" resultMap="com.hans.shilipiaoxiang.publicservice.mapper.IDetailtypeMapper.BaseResultMap">
     </association>
   </resultMap>
 
