@@ -215,7 +215,7 @@
     </collection>
   </resultMap>
   <select id="showGoods"  resultMap="listAll">
-    select b.* ,a.id as aid,a.title,a.price,a.desc,a.thumb,a.num from c_goods a,c_goods_types b where a.type_id = b.id
+    select b.* ,a.id as aid,a.title,a.price,a.origin_price,a.desc,a.thumb,a.num,a.tag from c_goods a,c_goods_types b where a.type_id = b.id order by b.id
   </select>
   <select id="showSaleGoods"  resultMap="listSale">
     select b.* ,a.id as aid,a.title,a.price,a.origin_price,a.thumb,a.num,a.tag from c_goods a,c_goods_types b where a.ifSale=1 and b.id=2

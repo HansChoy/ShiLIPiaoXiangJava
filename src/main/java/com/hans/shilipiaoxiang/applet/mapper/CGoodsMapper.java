@@ -28,4 +28,6 @@ public interface CGoodsMapper {
     int updateByPrimaryKeySelective(CGoods record);
 
     int updateByPrimaryKey(CGoods record);
+
+    List<CGoods> commitCartGoods(int cartId);
 }

@@ -1,17 +1,26 @@
 package com.hans.shilipiaoxiang.applet.service.serviceImpl;
 
 import com.hans.shilipiaoxiang.applet.mapper.CCartGoodsMapper;
+import com.hans.shilipiaoxiang.applet.mapper.CGoodsMapper;
 import com.hans.shilipiaoxiang.applet.mapper.CShoppingCartMapper;
 import com.hans.shilipiaoxiang.applet.pojo.CCartGoods;
+import com.hans.shilipiaoxiang.applet.pojo.CGoods;
 import com.hans.shilipiaoxiang.applet.pojo.CShoppingCart;
-import com.hans.shilipiaoxiang.applet.service.ShoppingCart;
+import com.hans.shilipiaoxiang.applet.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public class ShoppingCartImpl implements ShoppingCart {
+import java.util.List;
+
+
+@Service
+public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Autowired
     private CShoppingCartMapper cShoppingCartMapper;
     @Autowired
     private CCartGoodsMapper cCartGoodsMapper;
+    @Autowired
+    private CGoodsMapper cGoodsMapper;
     @Override
     public Boolean insertGood(int cartId, int goodId,double price,int total) {
 //        int id=cShoppingCartMapper.selectByOpenId(cartId);
@@ -74,6 +83,32 @@ public class ShoppingCartImpl implements ShoppingCart {
         cCartGoods.setGoodId(goodId);
         CCartGoods cCartGoods1=cCartGoodsMapper.selectByIds(cCartGoods);
         int flag=cCartGoodsMapper.deleteByPrimaryKey(cCartGoods1.getId());
+        if(flag!=0)
+            return true;
+        else
+            return false;
+    }
+
+    @Override
+    public List<CCartGoods> getCartGoods(int cartId) {
+        List<CCartGoods> cCartGoodsList=cCartGoodsMapper.showCartGoods(cartId);
+        return cCartGoodsList;
+    }
+
+    @Override
+    public List<CGoods> getCommitCartGoods(int cartId) {
+        List<CGoods> cGoodsList=cGoodsMapper.commitCartGoods(cartId);
+        return cGoodsList;
+    }
+
+    @Override
+    public Boolean deleteCartGoods(int cartId) {
+        int flag = cCartGoodsMapper.deleteCartGoods(cartId);
+        CShoppingCart cShoppingCart=new CShoppingCart();
+        cShoppingCart.setId(cartId);
+        cShoppingCart.setPrice(0.0);
+        cShoppingCart.setTotal(0);
+        cShoppingCartMapper.updateByPrimaryKeySelective(cShoppingCart);
         if(flag!=0)
             return true;
         else

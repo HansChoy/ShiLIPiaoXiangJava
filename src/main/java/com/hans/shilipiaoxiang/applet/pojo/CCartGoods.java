@@ -1,5 +1,7 @@
 package com.hans.shilipiaoxiang.applet.pojo;
 import java.io.Serializable;
+
+
 public class CCartGoods {
     private Integer id;
 
@@ -8,6 +10,16 @@ public class CCartGoods {
     private Integer goodId;
 
     private Integer num;
+
+    private CGoods cGoods;
+
+    public CGoods getcGoods() {
+        return cGoods;
+    }
+
+    public void setcGoods(CGoods cGoods) {
+        this.cGoods = cGoods;
+    }
 
     public Integer getId() {
         return id;

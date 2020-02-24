@@ -32,4 +32,8 @@ public interface CCartGoodsMapper {
     int update(CCartGoods record);
 
     CCartGoods selectByIds(CCartGoods record);
+
+    List<CCartGoods> showCartGoods(int cartId);
+
+    int deleteCartGoods(int cartId);
 }

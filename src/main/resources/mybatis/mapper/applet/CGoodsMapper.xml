@@ -318,4 +318,10 @@
       tag = #{tag,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="commitCartGoods"  resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select b.num,a.id,a.title,a.price,a.origin_price,a.desc,a.thumb,a.type_id,a.tag from c_goods a,c_cart_goods b where a.id = b.good_id and cart_id = #{cartId,jdbcType=INTEGER} order by a.id
+  </select>
+  <select id="showRecommGoods"  resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select b.num,a.id,a.title,a.price,a.origin_price,a.desc,a.thumb,a.type_id,a.tag from c_goods a,c_cart_goods b where a.id = b.good_id and cart_id = #{cartId,jdbcType=INTEGER} order by a.id
+  </select>
 </mapper>

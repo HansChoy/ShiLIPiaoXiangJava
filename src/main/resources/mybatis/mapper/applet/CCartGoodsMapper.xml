@@ -205,4 +205,31 @@
       num = #{num,jdbcType=INTEGER}
     where cart_id = #{cartId,jdbcType=INTEGER} and good_id = #{goodId,jdbcType=INTEGER}
   </update>
+  <resultMap id="listCartGoods" type="com.hans.shilipiaoxiang.applet.pojo.CCartGoods" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="cart_id" property="cartId" jdbcType="INTEGER" />
+    <result column="good_id" property="goodId" jdbcType="INTEGER" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <association property="cGoods" javaType="com.hans.shilipiaoxiang.applet.pojo.CGoods">
+      <id column="aid" property="id" jdbcType="INTEGER" />
+      <result column="title" property="title" jdbcType="VARCHAR" />
+      <!--<result column="ifSale" property="ifsale" jdbcType="INTEGER" />-->
+      <result column="price" property="price" jdbcType="DOUBLE" />
+      <result column="origin_price" property="originPrice" jdbcType="DOUBLE" />
+      <result column="desc" property="desc" jdbcType="VARCHAR" />
+      <result column="thumb" property="thumb" jdbcType="VARCHAR" />
+      <result column="num" property="num" jdbcType="INTEGER" />
+      <result column="type_id" property="typeId" jdbcType="INTEGER" />
+      <!--<result column="recommend" property="recommend" jdbcType="INTEGER" />-->
+      <!--<result column="material" property="material" jdbcType="VARCHAR" />-->
+      <result column="tag" property="tag" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  <select id="showCartGoods"  resultMap="listCartGoods" parameterType="java.lang.Integer">
+    select b.* ,a.id as aid,a.title,a.price,a.desc,a.thumb,a.type_id from c_goods a,c_cart_goods b where a.id = b.good_id and cart_id = #{cartId,jdbcType=INTEGER} order by a.type_id
+  </select>
+  <delete id="deleteCartGoods" parameterType="java.lang.Integer" >
+    delete from c_cart_goods
+    where cart_id = #{cartId,jdbcType=INTEGER}
+  </delete>
 </mapper>

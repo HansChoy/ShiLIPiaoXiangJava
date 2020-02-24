@@ -28,6 +28,7 @@ public class GoodsController {
     @Autowired
     private GoodsService goodsService;
 
+
     @ApiOperation(value = "显示所有商品")
     @RequestMapping(value = "/showGoods", method = RequestMethod.GET)
     public void showGoods(HttpServletResponse response) throws IOException {

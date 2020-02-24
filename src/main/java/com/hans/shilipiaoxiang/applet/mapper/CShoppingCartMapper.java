@@ -30,4 +30,6 @@ public interface CShoppingCartMapper {
     int updateByPrimaryKey(CShoppingCart record);
 
     CShoppingCart selectByOpenId(String wxId);
+
+
 }
