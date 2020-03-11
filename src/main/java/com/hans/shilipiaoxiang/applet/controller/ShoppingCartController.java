@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.hans.shilipiaoxiang.applet.pojo.CCartGoods;
 import com.hans.shilipiaoxiang.applet.pojo.CGoods;
 import com.hans.shilipiaoxiang.applet.pojo.CGoodsTypes;
+import com.hans.shilipiaoxiang.applet.pojo.CShoppingCart;
 import com.hans.shilipiaoxiang.applet.service.GoodsService;
 import com.hans.shilipiaoxiang.applet.service.ShoppingCartService;
 import com.hans.shilipiaoxiang.json.Result;
@@ -63,7 +64,7 @@ public class ShoppingCartController {
         Integer total=data.getInteger("total");
         boolean flag=false;
         if(num==0){
-            flag=shoppingCartService.deleteGood(cartId,goodId);
+            flag=shoppingCartService.deleteGood(cartId,goodId,price,total);
         }else {
             flag=shoppingCartService.subGood(cartId,goodId,num,price,total);
         }
@@ -152,6 +153,31 @@ public class ShoppingCartController {
         boolean flag=shoppingCartService.deleteCartGoods(cartId);
         String json;
         json = Result.build(ResultType.Success).appendData("flag", flag).convertIntoJSON();
+        response.getWriter().write(json);
+    }
+
+    @ApiOperation(value = "商品详情（购物车）")
+    @RequestMapping(value = "/getCartGoodsDetail", method = RequestMethod.POST)
+    public void getCartGoodsDetail(@RequestBody JSONObject res,HttpServletResponse response) throws IOException {
+        Integer cartId=res.getInteger("cartId");
+        Integer goodId=res.getInteger("goodId");
+        response.setContentType("application/json;charset=utf-8");
+        CGoods cGoods=goodsService.getGoodDetail(goodId);
+        CShoppingCart cShoppingCart=shoppingCartService.getPriceAndTotal(cartId);
+        int total=0;
+        double price=0;
+        total=cShoppingCart.getTotal();
+        price=cShoppingCart.getPrice();
+        CCartGoods cCartGoods=shoppingCartService.getNum(cartId,goodId);
+        if(cCartGoods!=null){
+            cGoods.setNum(cCartGoods.getNum());
+        }
+        JSONObject data = new JSONObject();
+        data.put("goods",cGoods);
+        data.put("price",price);
+        data.put("total",total);
+        String json;
+        json = Result.build(ResultType.Success).appendData("data", data).convertIntoJSON();
         response.getWriter().write(json);
     }
 }

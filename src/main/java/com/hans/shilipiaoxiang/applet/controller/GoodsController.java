@@ -29,6 +29,7 @@ public class GoodsController {
     private GoodsService goodsService;
 
 
+
     @ApiOperation(value = "显示所有商品")
     @RequestMapping(value = "/showGoods", method = RequestMethod.GET)
     public void showGoods(HttpServletResponse response) throws IOException {
@@ -48,6 +49,16 @@ public class GoodsController {
     public void showGoodDetail(@RequestBody JSONObject data,HttpServletResponse response) throws IOException {
         Integer id=data.getInteger("id");
         CGoods cGoods=goodsService.getGoodDetail(id);
+        response.setContentType("application/json;charset=utf-8");
+        String json;
+        json = Result.build(ResultType.Success).appendData("cGoods", cGoods).convertIntoJSON();
+        response.getWriter().write(json);
+    }
+
+    @ApiOperation(value = "获取推荐商品")
+    @RequestMapping(value = "/getRecommendGoods", method = RequestMethod.GET)
+    public void getRecommendGoods(HttpServletResponse response) throws IOException {
+        List<CGoods> cGoods=goodsService.getRecommentGoods();
         response.setContentType("application/json;charset=utf-8");
         String json;
         json = Result.build(ResultType.Success).appendData("cGoods", cGoods).convertIntoJSON();

@@ -77,13 +77,18 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public Boolean deleteGood(int cartId, int goodId) {
+    public Boolean deleteGood(int cartId, int goodId,double price,int total) {
         CCartGoods cCartGoods=new CCartGoods();
         cCartGoods.setCartId(cartId);
         cCartGoods.setGoodId(goodId);
         CCartGoods cCartGoods1=cCartGoodsMapper.selectByIds(cCartGoods);
-        int flag=cCartGoodsMapper.deleteByPrimaryKey(cCartGoods1.getId());
-        if(flag!=0)
+        int flag1=cCartGoodsMapper.deleteByPrimaryKey(cCartGoods1.getId());
+        CShoppingCart cShoppingCart=new CShoppingCart();
+        cShoppingCart.setId(cartId);
+        cShoppingCart.setTotal(total);
+        cShoppingCart.setPrice(price);
+        int flag2=cShoppingCartMapper.updateByPrimaryKeySelective(cShoppingCart);
+        if(flag1!=0&&flag2!=0)
             return true;
         else
             return false;
@@ -113,5 +118,22 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             return true;
         else
             return false;
+    }
+
+    @Override
+    public CShoppingCart getPriceAndTotal(int cartId) {
+        CShoppingCart cShoppingCart=new CShoppingCart();
+        cShoppingCart=cShoppingCartMapper.selectByPrimaryKey(cartId);
+        return cShoppingCart;
+    }
+
+    @Override
+    public CCartGoods getNum(int cartId, int goodId) {
+        CCartGoods cCartGoods=new CCartGoods();
+        cCartGoods.setCartId(cartId);
+        cCartGoods.setGoodId(goodId);
+        CCartGoods cCartGoods1=new CCartGoods();
+        cCartGoods1=cCartGoodsMapper.getNum(cCartGoods);
+        return cCartGoods1;
     }
 }

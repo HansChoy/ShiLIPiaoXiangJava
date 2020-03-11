@@ -11,4 +11,6 @@ public interface GoodsService {
     CGoodsTypes getSaleGoods();
 
     CGoods getGoodDetail(int id);
+
+    List<CGoods> getRecommentGoods();
 }

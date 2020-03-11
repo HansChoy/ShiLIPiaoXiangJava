@@ -30,4 +30,8 @@ public interface CGoodsMapper {
     int updateByPrimaryKey(CGoods record);
 
     List<CGoods> commitCartGoods(int cartId);
+
+    List<CGoods> showRecommendGoods();
+
+    List<CGoods> showOrderPreview(int cartId);
 }

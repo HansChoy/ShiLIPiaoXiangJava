@@ -93,7 +93,7 @@
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
-    <include refid="Base_Column_List" />
+    *
     from c_goods
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -321,7 +321,10 @@
   <select id="commitCartGoods"  resultMap="BaseResultMap" parameterType="java.lang.Integer">
     select b.num,a.id,a.title,a.price,a.origin_price,a.desc,a.thumb,a.type_id,a.tag from c_goods a,c_cart_goods b where a.id = b.good_id and cart_id = #{cartId,jdbcType=INTEGER} order by a.id
   </select>
-  <select id="showRecommGoods"  resultMap="BaseResultMap" parameterType="java.lang.Integer">
-    select b.num,a.id,a.title,a.price,a.origin_price,a.desc,a.thumb,a.type_id,a.tag from c_goods a,c_cart_goods b where a.id = b.good_id and cart_id = #{cartId,jdbcType=INTEGER} order by a.id
+  <select id="showRecommendGoods"  resultMap="BaseResultMap">
+    select * from c_goods  where recommend=1 order by id
+  </select>
+  <select id="showOrderPreview"  resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select a.id,a.title from c_goods a,c_order_goods b where a.id = b.good_id and b.order_id = #{cartId,jdbcType=INTEGER} order by a.id
   </select>
 </mapper>

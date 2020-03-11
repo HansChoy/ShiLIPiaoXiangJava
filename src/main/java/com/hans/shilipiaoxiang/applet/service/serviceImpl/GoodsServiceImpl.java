@@ -32,4 +32,10 @@ public class GoodsServiceImpl implements GoodsService {
         CGoods cGoods=goodsMapper.selectByPrimaryKey(id);
         return cGoods;
     }
+
+    @Override
+    public List<CGoods> getRecommentGoods() {
+        List<CGoods> cGoodsList=goodsMapper.showRecommendGoods();
+        return cGoodsList;
+    }
 }

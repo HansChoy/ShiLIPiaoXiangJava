@@ -36,4 +36,8 @@ public interface CCartGoodsMapper {
     List<CCartGoods> showCartGoods(int cartId);
 
     int deleteCartGoods(int cartId);
+
+    CCartGoods getNum(CCartGoods record);
+
+    List<CCartGoods> getGoodsId(int cartId);
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hans.shilipiaoxiang.applet.mapper.CCartGoodsMapper" >
-  <resultMap id="BaseResultMap" type="com.hans.shilipiaoxiang.applet.pojo.CCartGoods" >
+<mapper namespace="com.hans.shilipiaoxiang.applet.mapper.COrderGoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.hans.shilipiaoxiang.applet.pojo.COrderGoods" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="cart_id" property="cartId" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
     <result column="good_id" property="goodId" jdbcType="INTEGER" />
     <result column="num" property="num" jdbcType="INTEGER" />
   </resultMap>
@@ -66,15 +66,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, cart_id, good_id, num
+    id, order_id, good_id, num
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hans.shilipiaoxiang.applet.pojo.CCartGoodsExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hans.shilipiaoxiang.applet.pojo.COrderGoodsExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from c_cart_goods
+    from c_order_goods
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -85,36 +85,36 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from c_cart_goods
+    from c_order_goods
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from c_cart_goods
+    delete from c_order_goods
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.hans.shilipiaoxiang.applet.pojo.CCartGoodsExample" >
-    delete from c_cart_goods
+  <delete id="deleteByExample" parameterType="com.hans.shilipiaoxiang.applet.pojo.COrderGoodsExample" >
+    delete from c_order_goods
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.hans.shilipiaoxiang.applet.pojo.CCartGoods" >
+  <insert id="insert" parameterType="com.hans.shilipiaoxiang.applet.pojo.COrderGoods" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into c_cart_goods (cart_id, good_id, num
+    insert into c_order_goods (order_id, good_id, num
       )
-    values (#{cartId,jdbcType=INTEGER}, #{goodId,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}
+    values (#{orderId,jdbcType=INTEGER}, #{goodId,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.hans.shilipiaoxiang.applet.pojo.CCartGoods" >
+  <insert id="insertSelective" parameterType="com.hans.shilipiaoxiang.applet.pojo.COrderGoods" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into c_cart_goods
+    insert into c_order_goods
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="cartId != null" >
-        cart_id,
+      <if test="orderId != null" >
+        order_id,
       </if>
       <if test="goodId != null" >
         good_id,
@@ -124,8 +124,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="cartId != null" >
-        #{cartId,jdbcType=INTEGER},
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
       </if>
       <if test="goodId != null" >
         #{goodId,jdbcType=INTEGER},
@@ -135,20 +135,20 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.hans.shilipiaoxiang.applet.pojo.CCartGoodsExample" resultType="java.lang.Integer" >
-    select count(*) from c_cart_goods
+  <select id="countByExample" parameterType="com.hans.shilipiaoxiang.applet.pojo.COrderGoodsExample" resultType="java.lang.Integer" >
+    select count(*) from c_order_goods
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update c_cart_goods
+    update c_order_goods
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.cartId != null" >
-        cart_id = #{record.cartId,jdbcType=INTEGER},
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=INTEGER},
       </if>
       <if test="record.goodId != null" >
         good_id = #{record.goodId,jdbcType=INTEGER},
@@ -162,20 +162,20 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update c_cart_goods
+    update c_order_goods
     set id = #{record.id,jdbcType=INTEGER},
-      cart_id = #{record.cartId,jdbcType=INTEGER},
+      order_id = #{record.orderId,jdbcType=INTEGER},
       good_id = #{record.goodId,jdbcType=INTEGER},
       num = #{record.num,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hans.shilipiaoxiang.applet.pojo.CCartGoods" >
-    update c_cart_goods
+  <update id="updateByPrimaryKeySelective" parameterType="com.hans.shilipiaoxiang.applet.pojo.COrderGoods" >
+    update c_order_goods
     <set >
-      <if test="cartId != null" >
-        cart_id = #{cartId,jdbcType=INTEGER},
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
       </if>
       <if test="goodId != null" >
         good_id = #{goodId,jdbcType=INTEGER},
@@ -186,56 +186,32 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.hans.shilipiaoxiang.applet.pojo.CCartGoods" >
-    update c_cart_goods
-    set cart_id = #{cartId,jdbcType=INTEGER},
+  <update id="updateByPrimaryKey" parameterType="com.hans.shilipiaoxiang.applet.pojo.COrderGoods" >
+    update c_order_goods
+    set order_id = #{orderId,jdbcType=INTEGER},
       good_id = #{goodId,jdbcType=INTEGER},
       num = #{num,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectByIds" resultMap="BaseResultMap" parameterType="com.hans.shilipiaoxiang.applet.pojo.CCartGoods" >
-    select
-    <include refid="Base_Column_List" />
-    from c_cart_goods
-    where cart_id = #{cartId,jdbcType=INTEGER} and good_id = #{goodId,jdbcType=INTEGER}
-  </select>
-  <update id="update" parameterType="com.hans.shilipiaoxiang.applet.pojo.CCartGoods" >
-    update c_cart_goods
-    set
-      num = #{num,jdbcType=INTEGER}
-    where cart_id = #{cartId,jdbcType=INTEGER} and good_id = #{goodId,jdbcType=INTEGER}
-  </update>
-  <resultMap id="listCartGoods" type="com.hans.shilipiaoxiang.applet.pojo.CCartGoods" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="cart_id" property="cartId" jdbcType="INTEGER" />
-    <result column="good_id" property="goodId" jdbcType="INTEGER" />
-    <result column="num" property="num" jdbcType="INTEGER" />
-    <association property="cGoods" javaType="com.hans.shilipiaoxiang.applet.pojo.CGoods">
-      <id column="aid" property="id" jdbcType="INTEGER" />
-      <result column="title" property="title" jdbcType="VARCHAR" />
-      <!--<result column="ifSale" property="ifsale" jdbcType="INTEGER" />-->
-      <result column="price" property="price" jdbcType="DOUBLE" />
-      <result column="origin_price" property="originPrice" jdbcType="DOUBLE" />
-      <result column="desc" property="desc" jdbcType="VARCHAR" />
-      <result column="thumb" property="thumb" jdbcType="VARCHAR" />
-      <result column="num" property="num" jdbcType="INTEGER" />
-      <result column="type_id" property="typeId" jdbcType="INTEGER" />
-      <!--<result column="recommend" property="recommend" jdbcType="INTEGER" />-->
-      <!--<result column="material" property="material" jdbcType="VARCHAR" />-->
-      <result column="tag" property="tag" jdbcType="VARCHAR" />
-    </association>
-  </resultMap>
-  <select id="showCartGoods"  resultMap="listCartGoods" parameterType="java.lang.Integer">
-    select b.* ,a.id as aid,a.title,a.price,a.desc,a.thumb,a.type_id from c_goods a,c_cart_goods b where a.id = b.good_id and cart_id = #{cartId,jdbcType=INTEGER} order by a.type_id
-  </select>
-  <delete id="deleteCartGoods" parameterType="java.lang.Integer" >
-    delete from c_cart_goods
-    where cart_id = #{cartId,jdbcType=INTEGER}
-  </delete>
-  <select id="getNum"  resultMap="BaseResultMap" parameterType="com.hans.shilipiaoxiang.applet.pojo.CCartGoods">
-    select * from c_cart_goods  where cart_id = #{cartId,jdbcType=INTEGER} and good_id = #{goodId,jdbcType=INTEGER}
-  </select>
-  <select id="getGoodsId"  resultMap="BaseResultMap" parameterType="java.lang.Integer">
-    select *  from c_cart_goods  where cart_id = #{cartId,jdbcType=INTEGER} order by good_id
-  </select>
+  <!--<resultMap id="listOrderGoods" type="com.hans.shilipiaoxiang.applet.pojo.COrderGoods" >-->
+    <!--<id column="id" property="id" jdbcType="INTEGER" />-->
+    <!--<result column="order_id" property="orderId" jdbcType="INTEGER" />-->
+    <!--<result column="good_id" property="goodId" jdbcType="INTEGER" />-->
+    <!--<result column="num" property="num" jdbcType="INTEGER" />-->
+    <!--<collection property="cGoodsList" ofType="com.hans.shilipiaoxiang.applet.pojo.CGoods">-->
+      <!--<id column="aid" property="id" jdbcType="INTEGER" />-->
+      <!--<result column="title" property="title" jdbcType="VARCHAR" />-->
+      <!--&lt;!&ndash;<result column="ifSale" property="ifsale" jdbcType="INTEGER" />&ndash;&gt;-->
+      <!--<result column="price" property="price" jdbcType="DOUBLE" />-->
+      <!--<result column="origin_price" property="originPrice" jdbcType="DOUBLE" />-->
+      <!--<result column="desc" property="desc" jdbcType="VARCHAR" />-->
+      <!--<result column="thumb" property="thumb" jdbcType="VARCHAR" />-->
+      <!--<result column="num" property="num" jdbcType="INTEGER" />-->
+      <!--<result column="type_id" property="typeId" jdbcType="INTEGER" />-->
+      <!--&lt;!&ndash;<result column="recommend" property="recommend" jdbcType="INTEGER" />&ndash;&gt;-->
+      <!--&lt;!&ndash;<result column="material" property="material" jdbcType="VARCHAR" />&ndash;&gt;-->
+      <!--<result column="tag" property="tag" jdbcType="VARCHAR" />-->
+    <!--</collection>-->
+  <!--</resultMap>-->
+
 </mapper>
