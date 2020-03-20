@@ -102,14 +102,14 @@ public class WechatController {
 
         String code=getcode.getString("getcode");
         System.out.println(code);
-//        JSONObject userInfo=getcode.getJSONObject("userInfo");
-//        System.out.println(userInfo);
-//        String name=userInfo.getString("nickName");
-//        int gender=userInfo.getInteger("gender");
-//        String country=userInfo.getString("country");
-//        String language=userInfo.getString("language");
-//        String province=userInfo.getString("province");
-//        String city=userInfo.getString("city");
+        JSONObject userInfo=getcode.getJSONObject("userInfo");
+        System.out.println(userInfo);
+        String name=userInfo.getString("nickName");
+        int gender=userInfo.getInteger("gender");
+        String country=userInfo.getString("country");
+        String language=userInfo.getString("language");
+        String province=userInfo.getString("province");
+        String city=userInfo.getString("city");
         String WX_URL = "https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code";
         String requestUrl = WX_URL.replace("APPID","wx96e7b0c6c0d084fa").
                 replace("SECRET","58994c510208a5e9f33cb05f112e28c3").replace("JSCODE",code).
@@ -121,12 +121,12 @@ public class WechatController {
 //        System.out.println("111111111"+openid);
         String sessionkey=(String) convertvalue.get("session_key");
         CUser cUser=new CUser();
-//        cUser.setName(name);
-//        cUser.setGender(gender);
-//        cUser.setCountry(country);
-//        cUser.setLanguage(language);
-//        cUser.setProvince(province);
-//        cUser.setCity(city);
+        cUser.setName(name);
+        cUser.setGender(gender);
+        cUser.setCountry(country);
+        cUser.setLanguage(language);
+        cUser.setProvince(province);
+        cUser.setCity(city);
         List<Integer> list=new ArrayList<>();
         list=wechatService.wechatLogin(openid,cUser);
 //        Boolean success=wechatService.addusernews(userid, name, gender, country, language,province,city);

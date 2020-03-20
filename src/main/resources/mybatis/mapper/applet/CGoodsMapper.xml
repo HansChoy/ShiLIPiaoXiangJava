@@ -327,4 +327,22 @@
   <select id="showOrderPreview"  resultMap="BaseResultMap" parameterType="java.lang.Integer">
     select a.id,a.title from c_goods a,c_order_goods b where a.id = b.good_id and b.order_id = #{cartId,jdbcType=INTEGER} order by a.id
   </select>
+  <resultMap id="showGood" type="com.hans.shilipiaoxiang.applet.pojo.CGoods" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="ifSale" property="ifsale" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="origin_price" property="originPrice" jdbcType="DOUBLE" />
+    <result column="desc" property="desc" jdbcType="VARCHAR" />
+    <result column="thumb" property="thumb" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="recommend" property="recommend" jdbcType="INTEGER" />
+    <result column="material" property="material" jdbcType="VARCHAR" />
+    <result column="tag" property="tag" jdbcType="VARCHAR" />
+    <result column="typeName" property="typeName" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="showGoods"  resultMap="showGood">
+    select a.* ,b.text as typeName  from c_goods a,c_goods_types b where a.type_id=b.id
+  </select>
 </mapper>

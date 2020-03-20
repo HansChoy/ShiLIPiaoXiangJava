@@ -34,4 +34,6 @@ public interface CGoodsMapper {
     List<CGoods> showRecommendGoods();
 
     List<CGoods> showOrderPreview(int cartId);
+
+    List<CGoods> showGoods();
 }
