@@ -2,10 +2,8 @@ package com.hans.shilipiaoxiang.applet.controller;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.hans.shilipiaoxiang.applet.pojo.CCartGoods;
-import com.hans.shilipiaoxiang.applet.pojo.CGoods;
-import com.hans.shilipiaoxiang.applet.pojo.COrder;
-import com.hans.shilipiaoxiang.applet.pojo.COrderGoods;
+import com.hans.shilipiaoxiang.applet.pojo.*;
+import com.hans.shilipiaoxiang.applet.service.GoodsService;
 import com.hans.shilipiaoxiang.applet.service.OrderService;
 import com.hans.shilipiaoxiang.applet.service.ShoppingCartService;
 import com.hans.shilipiaoxiang.json.Result;
@@ -34,9 +32,11 @@ public class OrderController {
     private OrderService orderService;
     @Autowired
     private ShoppingCartService shoppingCartService;
+    @Autowired
+    private GoodsService goodsService;
     @ApiOperation(value = "提交订单")
     @RequestMapping(value = "/addOrder", method = RequestMethod.POST)
-    public void showGoods(@RequestBody JSONObject data,HttpServletResponse response) throws IOException {
+    public void addOrder(@RequestBody JSONObject data,HttpServletResponse response) throws IOException {
         Integer cartId=data.getInteger("cartId");
         Double price=data.getDouble("price");
         Integer total=data.getInteger("total");
@@ -68,9 +68,25 @@ public class OrderController {
         cOrder.setOrdertime(t);
         int orderId=orderService.addOrder(cOrder);
         List<CCartGoods> list=new ArrayList<>();
-        list=orderService.getGoodsId(4);
+        list=orderService.getGoodsId(cartId);
         for(CCartGoods c:list){
             COrderGoods cOrderGoods=new COrderGoods();
+            CGoods cGoods=c.getcGoods();
+            CGoods cGoods1=new CGoods();
+            cGoods1.setAmount(c.getNum());
+            cGoods1.setId(cGoods.getId());
+            goodsService.updateAmount(cGoods1);
+            if(cGoods.getIfsale()==1){
+                if(c.getNum()>cGoods.getTagNum()){
+                    double price1=(cGoods.getTagNum()*cGoods.getPrice()+(c.getNum()-cGoods.getTagNum())*cGoods.getOriginPrice());
+                    cOrderGoods.setPrice(price1);
+                }else{
+                    cOrderGoods.setPrice(c.getNum()*cGoods.getPrice());
+                }
+            }else{
+                cOrderGoods.setPrice(c.getNum()*cGoods.getPrice());
+            }
+
             cOrderGoods.setGoodId(c.getGoodId());
             cOrderGoods.setOrderId(orderId);
             cOrderGoods.setNum(c.getNum());
@@ -78,7 +94,7 @@ public class OrderController {
         }
         shoppingCartService.deleteCartGoods(cartId);
         String json;
-        json = Result.build(ResultType.Success).appendData("code", code2).convertIntoJSON();
+        json = Result.build(ResultType.Success).appendData("code",code2).convertIntoJSON();
         response.getWriter().write(json);
     }
 
@@ -145,6 +161,151 @@ public class OrderController {
         list.put("orderTime",time);
         String json;
         json = Result.build(ResultType.Success).appendData("data", list).convertIntoJSON();
+        response.getWriter().write(json);
+    }
+
+    @ApiOperation(value = "添加评价")
+    @RequestMapping(value = "/makeEvaluate", method = RequestMethod.POST)
+    public void makeEvaluate(@RequestBody JSONObject data,HttpServletResponse response) throws IOException {
+        Integer orderId=data.getInteger("orderId");
+        Integer userId=data.getInteger("userId");
+        Integer rate=data.getInteger("rate");
+        String text=data.getString("text");
+        long t=System.currentTimeMillis();
+        response.setContentType("application/json;charset=utf-8");
+        COrder cOrder=new COrder();
+        cOrder.setId(orderId);
+        cOrder.setState(3);
+        CEvaluate cEvaluate=new CEvaluate();
+        cEvaluate.setOrderId(orderId);
+        cEvaluate.setUserId(userId);
+        cEvaluate.setRate(rate);
+        cEvaluate.setText(text);
+        cEvaluate.setEvaluatedTime(t);
+        cEvaluate.setState(1);
+        orderService.makeEvaluate(cEvaluate);
+        orderService.updateOrder(cOrder);
+//        orderService.
+        String json;
+        json = Result.build(ResultType.Success).appendData("data", "success").convertIntoJSON();
+        response.getWriter().write(json);
+    }
+    @ApiOperation(value = "展示我的评价")
+    @RequestMapping(value = "/showEvaluate", method = RequestMethod.POST)
+    public void showEvaluate(@RequestBody JSONObject data,HttpServletResponse response) throws IOException {
+        Integer userId=data.getInteger("userId");
+        response.setContentType("application/json;charset=utf-8");
+        List<CEvaluate> cEvaluateList= orderService.showEvaluate(userId);
+        List<JSONObject> res = new ArrayList<>();
+        for(CEvaluate c:cEvaluateList){
+            List<CGoods> cGoodsList = orderService.getGoodsName(c.getOrderId());
+            JSONObject list = new JSONObject();
+            String time = DateUtil.getSimpleDate(c.getEvaluatedTime());
+            String goodsName = null;
+            int i = 0;
+            for (CGoods a : cGoodsList) {
+                if (i == 0)
+                    goodsName = a.getTitle() + ',';
+                else if (i < cGoodsList.size() - 1)
+                    goodsName = goodsName + a.getTitle() + ',';
+                else
+                    goodsName = goodsName + a.getTitle();
+                i++;
+            }
+            List<CEvaluateReply> cEvaluateReplyList=c.getcEvaluateReplyList();
+            for(CEvaluateReply r:cEvaluateReplyList){
+                String replyTime = DateUtil.getSimpleDate(r.getReplyTime());
+                r.setReplyDate(replyTime);
+            }
+            list.put("goodsName",goodsName);
+            list.put("cEvaluate",c);
+            list.put("evaluateTime",time);
+            res.add(list);
+        }
+        String json;
+        json = Result.build(ResultType.Success).appendData("data", res).convertIntoJSON();
+        response.getWriter().write(json);
+    }
+    @ApiOperation(value = "添加追评")
+    @RequestMapping(value = "/addEvaluateReply", method = RequestMethod.POST)
+    public void addEvaluateReply(@RequestBody JSONObject data,HttpServletResponse response) throws IOException {
+        Integer userId=data.getInteger("userId");
+        Integer orderId=data.getInteger("orderId");
+        String text=data.getString("text");
+        long t=System.currentTimeMillis();
+        CEvaluateReply cEvaluateReply=new CEvaluateReply();
+        cEvaluateReply.setOrderId(orderId);
+        cEvaluateReply.setUserId(userId);
+        cEvaluateReply.setText(text);
+        cEvaluateReply.setReplyTime(t);
+        cEvaluateReply.setType(0);
+        orderService.addEvaluateReply(cEvaluateReply);
+        response.setContentType("application/json;charset=utf-8");
+        List<CEvaluate> cEvaluateList= orderService.showEvaluate(userId);
+        JSONObject list = new JSONObject();
+        for(CEvaluate c:cEvaluateList){
+            if(c.getOrderId()==orderId) {
+                List<CGoods> cGoodsList = orderService.getGoodsName(c.getOrderId());
+                String time = DateUtil.getSimpleDate(c.getEvaluatedTime());
+                String goodsName = null;
+                int i = 0;
+                for (CGoods a : cGoodsList) {
+                    if (i == 0)
+                        goodsName = a.getTitle() + ',';
+                    else if (i < cGoodsList.size() - 1)
+                        goodsName = goodsName + a.getTitle() + ',';
+                    else
+                        goodsName = goodsName + a.getTitle();
+                    i++;
+                }
+                List<CEvaluateReply> cEvaluateReplyList = c.getcEvaluateReplyList();
+                for (CEvaluateReply r : cEvaluateReplyList) {
+                    String replyTime = DateUtil.getSimpleDate(r.getReplyTime());
+                    r.setReplyDate(replyTime);
+                }
+                list.put("goodsName", goodsName);
+                list.put("cEvaluate", c);
+                list.put("evaluateTime", time);
+                break;
+            }
+        }
+        String json;
+        json = Result.build(ResultType.Success).appendData("data", list).convertIntoJSON();
+        response.getWriter().write(json);
+    }
+    @ApiOperation(value = "展示所有评价")
+    @RequestMapping(value = "/showAllEvaluate", method = RequestMethod.GET)
+    public void showAllEvaluate(HttpServletResponse response) throws IOException {
+        response.setContentType("application/json;charset=utf-8");
+        List<CEvaluate> cEvaluateList= orderService.showAllEvaluate();
+        List<JSONObject> res = new ArrayList<>();
+        for(CEvaluate c:cEvaluateList){
+            List<CGoods> cGoodsList = orderService.getGoodsName(c.getOrderId());
+            JSONObject list = new JSONObject();
+            String time = DateUtil.getSimpleDate(c.getEvaluatedTime());
+            String goodsName = null;
+            int i = 0;
+            for (CGoods a : cGoodsList) {
+                if (i == 0)
+                    goodsName = a.getTitle() + ',';
+                else if (i < cGoodsList.size() - 1)
+                    goodsName = goodsName + a.getTitle() + ',';
+                else
+                    goodsName = goodsName + a.getTitle();
+                i++;
+            }
+            List<CEvaluateReply> cEvaluateReplyList=c.getcEvaluateReplyList();
+            for(CEvaluateReply r:cEvaluateReplyList){
+                String replyTime = DateUtil.getSimpleDate(r.getReplyTime());
+                r.setReplyDate(replyTime);
+            }
+            list.put("goodsName",goodsName);
+            list.put("cEvaluate",c);
+            list.put("evaluateTime",time);
+            res.add(list);
+        }
+        String json;
+        json = Result.build(ResultType.Success).appendData("data", res).convertIntoJSON();
         response.getWriter().write(json);
     }
 }

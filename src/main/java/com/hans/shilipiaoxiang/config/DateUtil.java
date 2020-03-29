@@ -21,8 +21,8 @@ public class DateUtil {
      * 得到简单的时间戳，格式:yyyyMMdd(年月日)
      * @return 简单的时间戳
      */
-    public static String getSimpleTimeStamp(){
-        return new SimpleDateFormat("yyyyMMdd").format(new Date()) ;
+    public static String getSimpleDate(Long time){
+        return new SimpleDateFormat("yyyy-MM-dd").format(new Date(time)) ;
     }
 
     /**

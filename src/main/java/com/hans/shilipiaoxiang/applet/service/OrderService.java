@@ -18,4 +18,14 @@ public interface OrderService {
     COrder getOrderDetail(int orderId);
 
     List<COrder> getOrders(COrder cOrder);
+
+    int updateOrder(COrder cOrder);
+
+    int makeEvaluate(CEvaluate cEvaluate);
+
+    List<CEvaluate> showEvaluate(int userId);
+
+    List<CEvaluate> showAllEvaluate();
+
+    int addEvaluateReply(CEvaluateReply cEvaluateReply);
 }

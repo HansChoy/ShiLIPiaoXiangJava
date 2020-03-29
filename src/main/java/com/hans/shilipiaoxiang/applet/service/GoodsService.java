@@ -13,4 +13,8 @@ public interface GoodsService {
     CGoods getGoodDetail(int id);
 
     List<CGoods> getRecommentGoods();
+
+    int updateSaleNumByMonth();
+
+    int updateAmount(CGoods cGoods);
 }

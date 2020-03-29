@@ -1,13 +1,7 @@
 package com.hans.shilipiaoxiang.applet.service.serviceImpl;
 
-import com.hans.shilipiaoxiang.applet.mapper.CCartGoodsMapper;
-import com.hans.shilipiaoxiang.applet.mapper.CGoodsMapper;
-import com.hans.shilipiaoxiang.applet.mapper.COrderGoodsMapper;
-import com.hans.shilipiaoxiang.applet.mapper.COrderMapper;
-import com.hans.shilipiaoxiang.applet.pojo.CCartGoods;
-import com.hans.shilipiaoxiang.applet.pojo.CGoods;
-import com.hans.shilipiaoxiang.applet.pojo.COrder;
-import com.hans.shilipiaoxiang.applet.pojo.COrderGoods;
+import com.hans.shilipiaoxiang.applet.mapper.*;
+import com.hans.shilipiaoxiang.applet.pojo.*;
 import com.hans.shilipiaoxiang.applet.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +18,11 @@ public class OrderServiceImpl implements OrderService {
     private COrderGoodsMapper cOrderGoodsMapper;
     @Autowired
     private CGoodsMapper cGoodsMapper;
+    @Autowired
+    private CEvaluateMapper cEvaluateMapper;
+    @Autowired
+    private CEvaluateReplyMapper cEvaluateReplyMapper;
+
     @Override
     public List<CCartGoods> getGoodsId(int cartId) {
         List<CCartGoods> cCartGoodsList=cCartGoodsMapper.getGoodsId(cartId);
@@ -68,5 +67,42 @@ public class OrderServiceImpl implements OrderService {
     public List<COrder> getOrders(COrder cOrder) {
         List<COrder> cOrderList=cOrderMapper.showOrders(cOrder);
         return cOrderList;
+    }
+
+    @Override
+    public int makeEvaluate(CEvaluate cEvaluate) {
+        int flag=cEvaluateMapper.insert(cEvaluate);
+        return flag;
+    }
+
+    @Override
+    public int updateOrder(COrder cOrder) {
+        int flag=cOrderMapper.updateByPrimaryKeySelective(cOrder);
+        return flag;
+    }
+
+    @Override
+    public List<CEvaluate> showEvaluate(int userId) {
+        List<CEvaluate> cEvaluateList=cEvaluateMapper.showEvaluate(userId);
+        for (CEvaluate c:cEvaluateList){
+            List<CEvaluateReply> cEvaluateReplyList=cEvaluateReplyMapper.showEvaluateReply(c.getOrderId());
+            c.setcEvaluateReplyList(cEvaluateReplyList);
+        }
+        return cEvaluateList;
+    }
+
+    @Override
+    public int addEvaluateReply(CEvaluateReply cEvaluateReply) {
+        int flag=cEvaluateReplyMapper.insertSelective(cEvaluateReply);
+        return flag;
+    }
+    @Override
+    public List<CEvaluate> showAllEvaluate() {
+        List<CEvaluate> cEvaluateList=cEvaluateMapper.showAllEvaluate();
+        for (CEvaluate c:cEvaluateList){
+            List<CEvaluateReply> cEvaluateReplyList=cEvaluateReplyMapper.showEvaluateReply(c.getOrderId());
+            c.setcEvaluateReplyList(cEvaluateReplyList);
+        }
+        return cEvaluateList;
     }
 }

@@ -414,73 +414,63 @@ public class CGoodsExample {
             return (Criteria) this;
         }
 
-        public Criteria andDescIsNull() {
-            addCriterion("desc is null");
+        public Criteria andAmountIsNull() {
+            addCriterion("amount is null");
             return (Criteria) this;
         }
 
-        public Criteria andDescIsNotNull() {
-            addCriterion("desc is not null");
+        public Criteria andAmountIsNotNull() {
+            addCriterion("amount is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDescEqualTo(String value) {
-            addCriterion("desc =", value, "desc");
+        public Criteria andAmountEqualTo(Integer value) {
+            addCriterion("amount =", value, "amount");
             return (Criteria) this;
         }
 
-        public Criteria andDescNotEqualTo(String value) {
-            addCriterion("desc <>", value, "desc");
+        public Criteria andAmountNotEqualTo(Integer value) {
+            addCriterion("amount <>", value, "amount");
             return (Criteria) this;
         }
 
-        public Criteria andDescGreaterThan(String value) {
-            addCriterion("desc >", value, "desc");
+        public Criteria andAmountGreaterThan(Integer value) {
+            addCriterion("amount >", value, "amount");
             return (Criteria) this;
         }
 
-        public Criteria andDescGreaterThanOrEqualTo(String value) {
-            addCriterion("desc >=", value, "desc");
+        public Criteria andAmountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("amount >=", value, "amount");
             return (Criteria) this;
         }
 
-        public Criteria andDescLessThan(String value) {
-            addCriterion("desc <", value, "desc");
+        public Criteria andAmountLessThan(Integer value) {
+            addCriterion("amount <", value, "amount");
             return (Criteria) this;
         }
 
-        public Criteria andDescLessThanOrEqualTo(String value) {
-            addCriterion("desc <=", value, "desc");
+        public Criteria andAmountLessThanOrEqualTo(Integer value) {
+            addCriterion("amount <=", value, "amount");
             return (Criteria) this;
         }
 
-        public Criteria andDescLike(String value) {
-            addCriterion("desc like", value, "desc");
+        public Criteria andAmountIn(List<Integer> values) {
+            addCriterion("amount in", values, "amount");
             return (Criteria) this;
         }
 
-        public Criteria andDescNotLike(String value) {
-            addCriterion("desc not like", value, "desc");
+        public Criteria andAmountNotIn(List<Integer> values) {
+            addCriterion("amount not in", values, "amount");
             return (Criteria) this;
         }
 
-        public Criteria andDescIn(List<String> values) {
-            addCriterion("desc in", values, "desc");
+        public Criteria andAmountBetween(Integer value1, Integer value2) {
+            addCriterion("amount between", value1, value2, "amount");
             return (Criteria) this;
         }
 
-        public Criteria andDescNotIn(List<String> values) {
-            addCriterion("desc not in", values, "desc");
-            return (Criteria) this;
-        }
-
-        public Criteria andDescBetween(String value1, String value2) {
-            addCriterion("desc between", value1, value2, "desc");
-            return (Criteria) this;
-        }
-
-        public Criteria andDescNotBetween(String value1, String value2) {
-            addCriterion("desc not between", value1, value2, "desc");
+        public Criteria andAmountNotBetween(Integer value1, Integer value2) {
+            addCriterion("amount not between", value1, value2, "amount");
             return (Criteria) this;
         }
 
@@ -804,73 +794,123 @@ public class CGoodsExample {
             return (Criteria) this;
         }
 
-        public Criteria andTagIsNull() {
-            addCriterion("tag is null");
+        public Criteria andTagNumIsNull() {
+            addCriterion("tag_num is null");
             return (Criteria) this;
         }
 
-        public Criteria andTagIsNotNull() {
-            addCriterion("tag is not null");
+        public Criteria andTagNumIsNotNull() {
+            addCriterion("tag_num is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTagEqualTo(String value) {
-            addCriterion("tag =", value, "tag");
+        public Criteria andTagNumEqualTo(Integer value) {
+            addCriterion("tag_num =", value, "tagNum");
             return (Criteria) this;
         }
 
-        public Criteria andTagNotEqualTo(String value) {
-            addCriterion("tag <>", value, "tag");
+        public Criteria andTagNumNotEqualTo(Integer value) {
+            addCriterion("tag_num <>", value, "tagNum");
             return (Criteria) this;
         }
 
-        public Criteria andTagGreaterThan(String value) {
-            addCriterion("tag >", value, "tag");
+        public Criteria andTagNumGreaterThan(Integer value) {
+            addCriterion("tag_num >", value, "tagNum");
             return (Criteria) this;
         }
 
-        public Criteria andTagGreaterThanOrEqualTo(String value) {
-            addCriterion("tag >=", value, "tag");
+        public Criteria andTagNumGreaterThanOrEqualTo(Integer value) {
+            addCriterion("tag_num >=", value, "tagNum");
             return (Criteria) this;
         }
 
-        public Criteria andTagLessThan(String value) {
-            addCriterion("tag <", value, "tag");
+        public Criteria andTagNumLessThan(Integer value) {
+            addCriterion("tag_num <", value, "tagNum");
             return (Criteria) this;
         }
 
-        public Criteria andTagLessThanOrEqualTo(String value) {
-            addCriterion("tag <=", value, "tag");
+        public Criteria andTagNumLessThanOrEqualTo(Integer value) {
+            addCriterion("tag_num <=", value, "tagNum");
             return (Criteria) this;
         }
 
-        public Criteria andTagLike(String value) {
-            addCriterion("tag like", value, "tag");
+        public Criteria andTagNumIn(List<Integer> values) {
+            addCriterion("tag_num in", values, "tagNum");
             return (Criteria) this;
         }
 
-        public Criteria andTagNotLike(String value) {
-            addCriterion("tag not like", value, "tag");
+        public Criteria andTagNumNotIn(List<Integer> values) {
+            addCriterion("tag_num not in", values, "tagNum");
             return (Criteria) this;
         }
 
-        public Criteria andTagIn(List<String> values) {
-            addCriterion("tag in", values, "tag");
+        public Criteria andTagNumBetween(Integer value1, Integer value2) {
+            addCriterion("tag_num between", value1, value2, "tagNum");
             return (Criteria) this;
         }
 
-        public Criteria andTagNotIn(List<String> values) {
-            addCriterion("tag not in", values, "tag");
+        public Criteria andTagNumNotBetween(Integer value1, Integer value2) {
+            addCriterion("tag_num not between", value1, value2, "tagNum");
             return (Criteria) this;
         }
 
-        public Criteria andTagBetween(String value1, String value2) {
-            addCriterion("tag between", value1, value2, "tag");
+        public Criteria andStateIsNull() {
+            addCriterion("state is null");
             return (Criteria) this;
         }
 
-        public Criteria andTagNotBetween(String value1, String value2) {
-            addCriterion("tag not between", value1, value2, "tag");
+        public Criteria andStateIsNotNull() {
+            addCriterion("state is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateEqualTo(Integer value) {
+            addCriterion("state =", value, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateNotEqualTo(Integer value) {
+            addCriterion("state <>", value, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateGreaterThan(Integer value) {
+            addCriterion("state >", value, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateGreaterThanOrEqualTo(Integer value) {
+            addCriterion("state >=", value, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateLessThan(Integer value) {
+            addCriterion("state <", value, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateLessThanOrEqualTo(Integer value) {
+            addCriterion("state <=", value, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateIn(List<Integer> values) {
+            addCriterion("state in", values, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateNotIn(List<Integer> values) {
+            addCriterion("state not in", values, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateBetween(Integer value1, Integer value2) {
+            addCriterion("state between", value1, value2, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateNotBetween(Integer value1, Integer value2) {
+            addCriterion("state not between", value1, value2, "state");
             return (Criteria) this;
         }
     }

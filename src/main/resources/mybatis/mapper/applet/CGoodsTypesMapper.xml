@@ -183,16 +183,17 @@
     <collection property="cGoods" ofType="com.hans.shilipiaoxiang.applet.pojo.CGoods">
       <id column="aid" property="id" jdbcType="INTEGER" />
       <result column="title" property="title" jdbcType="VARCHAR" />
-      <!--<result column="ifSale" property="ifsale" jdbcType="INTEGER" />-->
+      <result column="ifSale" property="ifsale" jdbcType="INTEGER" />
       <result column="price" property="price" jdbcType="DOUBLE" />
-      <!--<result column="origin_price" property="originPrice" jdbcType="DOUBLE" />-->
-      <result column="desc" property="desc" jdbcType="VARCHAR" />
+      <result column="origin_price" property="originPrice" jdbcType="DOUBLE" />
+      <result column="amount" property="amount" jdbcType="INTEGER" />
       <result column="thumb" property="thumb" jdbcType="VARCHAR" />
       <result column="num" property="num" jdbcType="INTEGER" />
-      <!--<result column="type_id" property="typeId" jdbcType="INTEGER" />-->
-      <!--<result column="recommend" property="recommend" jdbcType="INTEGER" />-->
-      <!--<result column="material" property="material" jdbcType="VARCHAR" />-->
-      <!--<result column="tag" property="tag" jdbcType="VARCHAR" />-->
+      <result column="type_id" property="typeId" jdbcType="INTEGER" />
+      <result column="recommend" property="recommend" jdbcType="INTEGER" />
+      <result column="material" property="material" jdbcType="VARCHAR" />
+      <result column="tag_num" property="tagNum" jdbcType="INTEGER" />
+      <result column="state" property="state" jdbcType="INTEGER" />
     </collection>
   </resultMap>
   <resultMap id="listSale" type="com.hans.shilipiaoxiang.applet.pojo.CGoodsTypes" >
@@ -202,22 +203,23 @@
     <collection property="cGoods" ofType="com.hans.shilipiaoxiang.applet.pojo.CGoods">
       <id column="aid" property="id" jdbcType="INTEGER" />
       <result column="title" property="title" jdbcType="VARCHAR" />
-      <!--<result column="ifSale" property="ifsale" jdbcType="INTEGER" />-->
+      <result column="ifSale" property="ifsale" jdbcType="INTEGER" />
       <result column="price" property="price" jdbcType="DOUBLE" />
       <result column="origin_price" property="originPrice" jdbcType="DOUBLE" />
-      <result column="desc" property="desc" jdbcType="VARCHAR" />
+      <result column="amount" property="amount" jdbcType="INTEGER" />
       <result column="thumb" property="thumb" jdbcType="VARCHAR" />
       <result column="num" property="num" jdbcType="INTEGER" />
-      <!--<result column="type_id" property="typeId" jdbcType="INTEGER" />-->
-      <!--<result column="recommend" property="recommend" jdbcType="INTEGER" />-->
-      <!--<result column="material" property="material" jdbcType="VARCHAR" />-->
-      <result column="tag" property="tag" jdbcType="VARCHAR" />
+      <result column="type_id" property="typeId" jdbcType="INTEGER" />
+      <result column="recommend" property="recommend" jdbcType="INTEGER" />
+      <result column="material" property="material" jdbcType="VARCHAR" />
+      <result column="tag_num" property="tagNum" jdbcType="INTEGER" />
+      <result column="state" property="state" jdbcType="INTEGER" />
     </collection>
   </resultMap>
   <select id="showGoods"  resultMap="listAll">
-    select b.* ,a.id as aid,a.title,a.price,a.origin_price,a.desc,a.thumb,a.num,a.tag from c_goods a,c_goods_types b where a.type_id = b.id order by b.id
+    select b.* ,a.id as aid,a.title,a.price,a.ifSale,a.origin_price,a.amount,a.thumb,a.num,a.tag_num,a.type_id from c_goods a,c_goods_types b where a.type_id = b.id and a.state=0 order by b.id
   </select>
   <select id="showSaleGoods"  resultMap="listSale">
-    select b.* ,a.id as aid,a.title,a.price,a.origin_price,a.thumb,a.num,a.tag,a.desc from c_goods a,c_goods_types b where a.ifSale=1 and b.id=2
+    select b.* ,a.id as aid,a.title,a.price,a.ifSale,a.origin_price,a.thumb,a.num,a.tag_num,a.amount,a.type_id from c_goods a,c_goods_types b where a.ifSale=1 and b.id=2 and a.state=0
   </select>
 </mapper>

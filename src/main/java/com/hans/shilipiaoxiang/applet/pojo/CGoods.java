@@ -11,7 +11,7 @@ public class CGoods {
 
     private Double originPrice;
 
-    private String desc;
+    private Integer amount;
 
     private String thumb;
 
@@ -23,9 +23,41 @@ public class CGoods {
 
     private String material;
 
-    private String tag;
+    private Integer tagNum;
+
+    private Integer state;
 
     private String typeName;
+
+    private String desc;
+
+    private String tag;
+
+    private int index;
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
 
     public String getTypeName() {
         return typeName;
@@ -75,12 +107,12 @@ public class CGoods {
         this.originPrice = originPrice;
     }
 
-    public String getDesc() {
-        return desc;
+    public Integer getAmount() {
+        return amount;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc == null ? null : desc.trim();
+    public void setAmount(Integer amount) {
+        this.amount = amount;
     }
 
     public String getThumb() {
@@ -123,11 +155,19 @@ public class CGoods {
         this.material = material == null ? null : material.trim();
     }
 
-    public String getTag() {
-        return tag;
+    public Integer getTagNum() {
+        return tagNum;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag == null ? null : tag.trim();
+    public void setTagNum(Integer tagNum) {
+        this.tagNum = tagNum;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 }

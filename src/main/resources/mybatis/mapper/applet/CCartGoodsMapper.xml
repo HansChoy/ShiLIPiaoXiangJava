@@ -213,20 +213,21 @@
     <association property="cGoods" javaType="com.hans.shilipiaoxiang.applet.pojo.CGoods">
       <id column="aid" property="id" jdbcType="INTEGER" />
       <result column="title" property="title" jdbcType="VARCHAR" />
-      <!--<result column="ifSale" property="ifsale" jdbcType="INTEGER" />-->
+      <result column="ifSale" property="ifsale" jdbcType="INTEGER" />
       <result column="price" property="price" jdbcType="DOUBLE" />
       <result column="origin_price" property="originPrice" jdbcType="DOUBLE" />
-      <result column="desc" property="desc" jdbcType="VARCHAR" />
+      <result column="amount" property="amount" jdbcType="INTEGER" />
       <result column="thumb" property="thumb" jdbcType="VARCHAR" />
-      <result column="num" property="num" jdbcType="INTEGER" />
+      <result column="goodNum" property="num" jdbcType="INTEGER" />
       <result column="type_id" property="typeId" jdbcType="INTEGER" />
-      <!--<result column="recommend" property="recommend" jdbcType="INTEGER" />-->
-      <!--<result column="material" property="material" jdbcType="VARCHAR" />-->
-      <result column="tag" property="tag" jdbcType="VARCHAR" />
+      <result column="recommend" property="recommend" jdbcType="INTEGER" />
+      <result column="material" property="material" jdbcType="VARCHAR" />
+      <result column="tag_num" property="tagNum" jdbcType="INTEGER" />
+      <result column="state" property="state" jdbcType="INTEGER" />
     </association>
   </resultMap>
   <select id="showCartGoods"  resultMap="listCartGoods" parameterType="java.lang.Integer">
-    select b.* ,a.id as aid,a.title,a.price,a.desc,a.thumb,a.type_id from c_goods a,c_cart_goods b where a.id = b.good_id and cart_id = #{cartId,jdbcType=INTEGER} order by a.type_id
+    select b.* ,a.id as aid,a.title,a.tag_num,a.ifSale,a.price,a.origin_price,a.amount,a.thumb,a.type_id from c_goods a,c_cart_goods b where a.id = b.good_id and cart_id = #{cartId,jdbcType=INTEGER}  and a.state=0 order by a.type_id
   </select>
   <delete id="deleteCartGoods" parameterType="java.lang.Integer" >
     delete from c_cart_goods
@@ -235,7 +236,7 @@
   <select id="getNum"  resultMap="BaseResultMap" parameterType="com.hans.shilipiaoxiang.applet.pojo.CCartGoods">
     select * from c_cart_goods  where cart_id = #{cartId,jdbcType=INTEGER} and good_id = #{goodId,jdbcType=INTEGER}
   </select>
-  <select id="getGoodsId"  resultMap="BaseResultMap" parameterType="java.lang.Integer">
-    select *  from c_cart_goods  where cart_id = #{cartId,jdbcType=INTEGER} order by good_id
+  <select id="getGoodsId"  resultMap="listCartGoods" parameterType="java.lang.Integer">
+    select a.*,b.id as aid,b.title,b.ifSale,b.price,b.origin_price,b.amount,b.thumb,b.type_id,b.tag_num from c_cart_goods a,c_goods b where a.cart_id = #{cartId,jdbcType=INTEGER} and b.state=0 and a.good_id=b.id order by a.good_id
   </select>
 </mapper>

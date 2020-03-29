@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hans.shilipiaoxiang.applet.mapper.COrderGoodsMapper" >
-  <resultMap id="BaseResultMap" type="com.hans.shilipiaoxiang.applet.pojo.COrderGoods" >
+<mapper namespace="com.hans.shilipiaoxiang.applet.mapper.CEvaluateReplyMapper" >
+  <resultMap id="BaseResultMap" type="com.hans.shilipiaoxiang.applet.pojo.CEvaluateReply" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="order_id" property="orderId" jdbcType="INTEGER" />
-    <result column="good_id" property="goodId" jdbcType="INTEGER" />
-    <result column="num" property="num" jdbcType="INTEGER" />
-    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="admin_id" property="adminId" jdbcType="INTEGER" />
+    <result column="text" property="text" jdbcType="VARCHAR" />
+    <result column="reply_time" property="replyTime" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="evaluate_id" property="evaluateId" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,15 +70,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, order_id, good_id, num, price
+    id, order_id, user_id, admin_id, text, reply_time, type, evaluate_id
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hans.shilipiaoxiang.applet.pojo.COrderGoodsExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hans.shilipiaoxiang.applet.pojo.CEvaluateReplyExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from c_order_goods
+    from c_evaluate_reply
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -86,70 +89,90 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select
     <include refid="Base_Column_List" />
-    from c_order_goods
+    from c_evaluate_reply
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from c_order_goods
+    delete from c_evaluate_reply
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.hans.shilipiaoxiang.applet.pojo.COrderGoodsExample" >
-    delete from c_order_goods
+  <delete id="deleteByExample" parameterType="com.hans.shilipiaoxiang.applet.pojo.CEvaluateReplyExample" >
+    delete from c_evaluate_reply
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.hans.shilipiaoxiang.applet.pojo.COrderGoods" >
+  <insert id="insert" parameterType="com.hans.shilipiaoxiang.applet.pojo.CEvaluateReply" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into c_order_goods (order_id, good_id, num,
-    price)
-    values (#{orderId,jdbcType=INTEGER}, #{goodId,jdbcType=INTEGER}, #{num,jdbcType=INTEGER},
-    #{price,jdbcType=DOUBLE})
+    insert into c_evaluate_reply (order_id, user_id, admin_id,
+    text, reply_time, type,
+    evaluate_id)
+    values (#{orderId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{adminId,jdbcType=INTEGER},
+    #{text,jdbcType=VARCHAR}, #{replyTime,jdbcType=BIGINT}, #{type,jdbcType=INTEGER},
+    #{evaluateId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.hans.shilipiaoxiang.applet.pojo.COrderGoods" >
+  <insert id="insertSelective" parameterType="com.hans.shilipiaoxiang.applet.pojo.CEvaluateReply" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into c_order_goods
+    insert into c_evaluate_reply
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="orderId != null" >
         order_id,
       </if>
-      <if test="goodId != null" >
-        good_id,
+      <if test="userId != null" >
+        user_id,
       </if>
-      <if test="num != null" >
-        num,
+      <if test="adminId != null" >
+        admin_id,
       </if>
-      <if test="price != null" >
-        price,
+      <if test="text != null" >
+        text,
+      </if>
+      <if test="replyTime != null" >
+        reply_time,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="evaluateId != null" >
+        evaluate_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="orderId != null" >
         #{orderId,jdbcType=INTEGER},
       </if>
-      <if test="goodId != null" >
-        #{goodId,jdbcType=INTEGER},
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
       </if>
-      <if test="num != null" >
-        #{num,jdbcType=INTEGER},
+      <if test="adminId != null" >
+        #{adminId,jdbcType=INTEGER},
       </if>
-      <if test="price != null" >
-        #{price,jdbcType=DOUBLE},
+      <if test="text != null" >
+        #{text,jdbcType=VARCHAR},
+      </if>
+      <if test="replyTime != null" >
+        #{replyTime,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateId != null" >
+        #{evaluateId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.hans.shilipiaoxiang.applet.pojo.COrderGoodsExample" resultType="java.lang.Integer" >
-    select count(*) from c_order_goods
+  <select id="countByExample" parameterType="com.hans.shilipiaoxiang.applet.pojo.CEvaluateReplyExample" resultType="java.lang.Integer" >
+    select count(*) from c_evaluate_reply
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update c_order_goods
+    update c_evaluate_reply
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
@@ -157,14 +180,23 @@
       <if test="record.orderId != null" >
         order_id = #{record.orderId,jdbcType=INTEGER},
       </if>
-      <if test="record.goodId != null" >
-        good_id = #{record.goodId,jdbcType=INTEGER},
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
       </if>
-      <if test="record.num != null" >
-        num = #{record.num,jdbcType=INTEGER},
+      <if test="record.adminId != null" >
+        admin_id = #{record.adminId,jdbcType=INTEGER},
       </if>
-      <if test="record.price != null" >
-        price = #{record.price,jdbcType=DOUBLE},
+      <if test="record.text != null" >
+        text = #{record.text,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replyTime != null" >
+        reply_time = #{record.replyTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.evaluateId != null" >
+        evaluate_id = #{record.evaluateId,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -172,40 +204,58 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update c_order_goods
+    update c_evaluate_reply
     set id = #{record.id,jdbcType=INTEGER},
     order_id = #{record.orderId,jdbcType=INTEGER},
-    good_id = #{record.goodId,jdbcType=INTEGER},
-    num = #{record.num,jdbcType=INTEGER},
-    price = #{record.price,jdbcType=DOUBLE}
+    user_id = #{record.userId,jdbcType=INTEGER},
+    admin_id = #{record.adminId,jdbcType=INTEGER},
+    text = #{record.text,jdbcType=VARCHAR},
+    reply_time = #{record.replyTime,jdbcType=BIGINT},
+    type = #{record.type,jdbcType=INTEGER},
+    evaluate_id = #{record.evaluateId,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hans.shilipiaoxiang.applet.pojo.COrderGoods" >
-    update c_order_goods
+  <update id="updateByPrimaryKeySelective" parameterType="com.hans.shilipiaoxiang.applet.pojo.CEvaluateReply" >
+    update c_evaluate_reply
     <set >
       <if test="orderId != null" >
         order_id = #{orderId,jdbcType=INTEGER},
       </if>
-      <if test="goodId != null" >
-        good_id = #{goodId,jdbcType=INTEGER},
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="num != null" >
-        num = #{num,jdbcType=INTEGER},
+      <if test="adminId != null" >
+        admin_id = #{adminId,jdbcType=INTEGER},
       </if>
-      <if test="price != null" >
-        price = #{price,jdbcType=DOUBLE},
+      <if test="text != null" >
+        text = #{text,jdbcType=VARCHAR},
+      </if>
+      <if test="replyTime != null" >
+        reply_time = #{replyTime,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateId != null" >
+        evaluate_id = #{evaluateId,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.hans.shilipiaoxiang.applet.pojo.COrderGoods" >
-    update c_order_goods
+  <update id="updateByPrimaryKey" parameterType="com.hans.shilipiaoxiang.applet.pojo.CEvaluateReply" >
+    update c_evaluate_reply
     set order_id = #{orderId,jdbcType=INTEGER},
-      good_id = #{goodId,jdbcType=INTEGER},
-      num = #{num,jdbcType=INTEGER},
-      price = #{price,jdbcType=DOUBLE}
+      user_id = #{userId,jdbcType=INTEGER},
+      admin_id = #{adminId,jdbcType=INTEGER},
+      text = #{text,jdbcType=VARCHAR},
+      reply_time = #{replyTime,jdbcType=BIGINT},
+      type = #{type,jdbcType=INTEGER},
+      evaluate_id = #{evaluateId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="showEvaluateReply"  parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+    select * from c_evaluate_reply  where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
 </mapper>

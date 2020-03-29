@@ -1,7 +1,5 @@
 package com.hans.shilipiaoxiang.applet.pojo;
 import java.io.Serializable;
-import java.util.List;
-
 public class COrderGoods {
     private Integer id;
 
@@ -10,6 +8,8 @@ public class COrderGoods {
     private Integer goodId;
 
     private Integer num;
+
+    private Double price;
 
     public Integer getId() {
         return id;
@@ -41,5 +41,13 @@ public class COrderGoods {
 
     public void setNum(Integer num) {
         this.num = num;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }

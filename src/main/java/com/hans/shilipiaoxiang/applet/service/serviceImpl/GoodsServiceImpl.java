@@ -38,4 +38,16 @@ public class GoodsServiceImpl implements GoodsService {
         List<CGoods> cGoodsList=goodsMapper.showRecommendGoods();
         return cGoodsList;
     }
+
+    @Override
+    public int updateSaleNumByMonth() {
+        int flag=goodsMapper.updateSaleNumByMonth();
+        return flag;
+    }
+
+    @Override
+    public int updateAmount(CGoods cGoods) {
+        int flag=goodsMapper.updateByPrimaryKeySelective(cGoods);
+        return flag;
+    }
 }

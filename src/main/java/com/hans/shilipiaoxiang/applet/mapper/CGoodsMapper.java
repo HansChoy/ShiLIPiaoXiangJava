@@ -2,9 +2,8 @@ package com.hans.shilipiaoxiang.applet.mapper;
 
 import com.hans.shilipiaoxiang.applet.pojo.CGoods;
 import com.hans.shilipiaoxiang.applet.pojo.CGoodsExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface CGoodsMapper {
     int countByExample(CGoodsExample example);
@@ -36,4 +35,8 @@ public interface CGoodsMapper {
     List<CGoods> showOrderPreview(int cartId);
 
     List<CGoods> showGoods();
+
+    List<CGoods> showGoodsName(int typeId);
+
+    int updateSaleNumByMonth();
 }

@@ -37,6 +37,30 @@ public class GoodsController {
         CGoodsTypes saleGoods;
         saleGoods=goodsService.getSaleGoods();
         goods=goodsService.getGoods();
+        int j=0;
+        for(CGoods c:saleGoods.getcGoods()){
+            c.setDesc("月售"+c.getAmount()+"份");
+            c.setTag("折");
+            int index=c.getTypeId()-3;
+            List<CGoods> cGoodsList=goods.get(index).getcGoods();
+            int i=0;
+            for(CGoods a:cGoodsList){
+                if(c.getId()==a.getId()){
+                    c.setIndex(i);
+                    a.setIndex(j);
+                }
+                i++;
+            }
+            j++;
+        }
+        for(CGoodsTypes c:goods){
+            for(CGoods cGoods:c.getcGoods()){
+                if(cGoods.getIfsale()==1){
+                    cGoods.setTag("折");
+                }
+                cGoods.setDesc("月售"+cGoods.getAmount()+"份");
+            }
+        }
         goods.add(0,saleGoods);
         response.setContentType("application/json;charset=utf-8");
         String json;

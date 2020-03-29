@@ -39,7 +39,7 @@ public class ShoppingCartController {
         Integer num=data.getInteger("num");
         Double price=data.getDouble("price");
         Integer total=data.getInteger("total");
-        System.out.println(data);
+//        System.out.println(data);
         boolean flag=false;
         if(num==1){
             flag=shoppingCartService.insertGood(cartId,goodId,price,total);
@@ -84,36 +84,63 @@ public class ShoppingCartController {
         CGoodsTypes saleGoods;
         saleGoods=goodsService.getSaleGoods();
         goods=goodsService.getGoods();
+        int j=0;
+        for(CGoods c:saleGoods.getcGoods()){
+            c.setDesc("月售"+c.getAmount()+"份");
+            c.setTag("折");
+            int index=c.getTypeId()-3;
+            List<CGoods> cGoodsList=goods.get(index).getcGoods();
+            int i=0;
+            for(CGoods a:cGoodsList){
+                if(c.getId()==a.getId()){
+                    c.setIndex(i);
+                    a.setIndex(j);
+                }
+                i++;
+            }
+            j++;
+        }
+        for(CGoodsTypes c:goods){
+            for(CGoods cGoods:c.getcGoods()){
+                if(cGoods.getIfsale()==1){
+                    cGoods.setTag("折");
+                }
+                cGoods.setDesc("月售"+cGoods.getAmount()+"份");
+            }
+        }
         goods.add(0,saleGoods);
         response.setContentType("application/json;charset=utf-8");
         List<CCartGoods> cCartGoodsList=shoppingCartService.getCartGoods(cartId);
-        int total=0;
-        double price=0;
         for(int i=0;i<cCartGoodsList.size();i++){
             CCartGoods cCartGoods=cCartGoodsList.get(i);
             int num=cCartGoods.getNum();
             CGoods cGoods=cCartGoods.getcGoods();
             double goodPrice=cGoods.getPrice();
-            price=goodPrice*num+price;
             int id=cGoods.getId();
             int typeId=cGoods.getTypeId();
             CGoodsTypes cGoodsTypes=goods.get(typeId-2);
-            total=num+total;
-            int info=cGoodsTypes.getInfo();
-            cGoodsTypes.setInfo(num+info);
+            if(cGoods.getIfsale()!=1){
+                int info=cGoodsTypes.getInfo();
+                cGoodsTypes.setInfo(num+info);
+            }else{
+                int info=saleGoods.getInfo();
+                saleGoods.setInfo(num+info);
+            }
             List<CGoods> cGoodsList=cGoodsTypes.getcGoods();
             for(CGoods g:cGoodsList){
-                if(g.getId()==id){
+                if(g.getId()==id&&g.getIfsale()==1){
+                    g.setNum(num);
+                    saleGoods.getcGoods().get(g.getIndex()).setNum(num);
+                }else if(g.getId()==id){
                     g.setNum(num);
                 }
             }
         }
-        System.out.println(price);
-        System.out.println(total);
+        CShoppingCart cShoppingCart=shoppingCartService.getPriceAndTotal(cartId);
         JSONObject data = new JSONObject();
         data.put("goods",goods);
-        data.put("price",price);
-        data.put("total",total);
+        data.put("price",cShoppingCart.getPrice());
+        data.put("total",cShoppingCart.getTotal());
         String json;
         json = Result.build(ResultType.Success).appendData("data", data).convertIntoJSON();
         response.getWriter().write(json);
@@ -125,21 +152,17 @@ public class ShoppingCartController {
         Integer cartId=res.getInteger("cartId");
         response.setContentType("application/json;charset=utf-8");
         List<CGoods> cGoodsList=shoppingCartService.getCommitCartGoods(cartId);
-        int total=0;
-        double price=0;
-        for(int i=0;i<cGoodsList.size();i++){
-            CGoods cGoods=cGoodsList.get(i);
-            double goodPrice=cGoods.getPrice();
-            int num=cGoods.getNum();
-            price=goodPrice*num+price;
-            total=num+total;
+        int i=0;
+        for(CGoods c:cGoodsList){
+            if(c.getIfsale()==1){
+                c.setTag("折");
+            }
         }
-        System.out.println(price);
-        System.out.println(total);
+        CShoppingCart cShoppingCart=shoppingCartService.getPriceAndTotal(cartId);
         JSONObject data = new JSONObject();
         data.put("goods",cGoodsList);
-        data.put("price",price);
-        data.put("total",total);
+        data.put("price",cShoppingCart.getPrice());
+        data.put("total",cShoppingCart.getTotal());
         String json;
         json = Result.build(ResultType.Success).appendData("data", data).convertIntoJSON();
         response.getWriter().write(json);

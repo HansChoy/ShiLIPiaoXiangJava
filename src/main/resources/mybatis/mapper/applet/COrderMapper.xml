@@ -299,22 +299,48 @@
     <collection property="cGoodsList" ofType="com.hans.shilipiaoxiang.applet.pojo.CGoods">
       <id column="aid" property="id" jdbcType="INTEGER" />
       <result column="title" property="title" jdbcType="VARCHAR" />
-      <!--<result column="ifSale" property="ifsale" jdbcType="INTEGER" />-->
+      <result column="ifSale" property="ifsale" jdbcType="INTEGER" />
       <result column="goodPrice" property="price" jdbcType="DOUBLE" />
       <result column="origin_price" property="originPrice" jdbcType="DOUBLE" />
-      <result column="desc" property="desc" jdbcType="VARCHAR" />
+      <result column="amount" property="amount" jdbcType="INTEGER" />
       <result column="thumb" property="thumb" jdbcType="VARCHAR" />
       <result column="num" property="num" jdbcType="INTEGER" />
-      <!--<result column="type_id" property="typeId" jdbcType="INTEGER" />-->
-      <!--<result column="recommend" property="recommend" jdbcType="INTEGER" />-->
-      <!--<result column="material" property="material" jdbcType="VARCHAR" />-->
-      <result column="tag" property="tag" jdbcType="VARCHAR" />
+      <result column="type_id" property="typeId" jdbcType="INTEGER" />
+      <result column="recommend" property="recommend" jdbcType="INTEGER" />
+      <result column="material" property="material" jdbcType="VARCHAR" />
+      <result column="tag_num" property="tagNum" jdbcType="INTEGER" />
+      <result column="state" property="state" jdbcType="INTEGER" />
     </collection>
   </resultMap>
   <select id="showOrder"  resultMap="listOrder">
-    select b.* ,a.id as aid,a.title,a.price as goodPrice,a.origin_price,a.desc,a.thumb,c.num,a.tag from c_goods a,c_order b,c_order_goods c where a.id = c.good_id and  b.id=#{orderId,jdbcType=INTEGER} and  c.order_id=#{orderId,jdbcType=INTEGER}
+    select b.* ,a.id as aid,a.title,a.price as goodPrice,a.origin_price,a.amount,a.thumb,c.num,a.tag_num,a.ifSale from c_goods a,c_order b,c_order_goods c where a.id = c.good_id and  b.id=#{orderId,jdbcType=INTEGER} and  c.order_id=#{orderId,jdbcType=INTEGER}
   </select>
   <select id="showOrders"  resultMap="BaseResultMap" parameterType="com.hans.shilipiaoxiang.applet.pojo.COrder">
     select *  from c_order  where state=#{state,jdbcType=INTEGER} and wx_id=#{wxId,jdbcType=INTEGER}
   </select>
+  <resultMap id="showAmount" type="com.hans.shilipiaoxiang.applet.Select.AmountResult" >
+    <id column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+  </resultMap>
+  <select id="showAmount"  resultMap="showAmount" parameterType="com.hans.shilipiaoxiang.applet.Select.SelectParams">
+    select c.type_id,sum(b.num) as  num,sum(b.price) as price  from c_order a,c_order_goods b,c_goods c
+    where ordertime &gt;=#{startTime,jdbcType=BIGINT} and ordertime &lt;=#{endTime,jdbcType=BIGINT} and b.order_id=a.id and b.good_id=c.id
+    <!--<if test="typeId != 0" >-->
+      <!--and c.type_id=#{typeId,jdbcType=INTEGER}-->
+    <!--</if>-->
+    group by c.type_id
+    order by c.type_id
+  </select>
+  <select id="showAmountDetail"  resultMap="showAmount" parameterType="com.hans.shilipiaoxiang.applet.Select.SelectParams">
+    select c.id as type_id,sum(b.num) as  num,sum(b.price) as price  from c_order a,c_order_goods b,c_goods c
+    where ordertime &gt;=#{startTime,jdbcType=BIGINT} and ordertime &lt;=#{endTime,jdbcType=BIGINT} and b.order_id=a.id and b.good_id=c.id and c.type_id=#{typeId,jdbcType=INTEGER}
+    group by c.id
+    order by c.id
+  </select>
+  <select id="showToday"  resultMap="showAmount" parameterType="com.hans.shilipiaoxiang.applet.Select.SelectParams">
+    select id as type_id,sum(total) as  num,sum(price) as price  from c_order
+    where ordertime &gt;=#{startTime,jdbcType=BIGINT} and ordertime &lt;=#{endTime,jdbcType=BIGINT}
+  </select>
+
 </mapper>
